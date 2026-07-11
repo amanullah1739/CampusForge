@@ -1,0 +1,24 @@
+my-project/
+│
+├── app/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   │
+│   ├── templates/
+│   │   ├── index.html
+│   │   ├── login.html
+│   │   └── dashboard.html
+│   │
+│   ├── routes.py
+│   ├── models.py
+│   └── __init__.py
+│
+├── instance/
+├── migrations/
+├── .env
+├── config.py
+├── run.py
+├── requirements.txt
+└── README.md
