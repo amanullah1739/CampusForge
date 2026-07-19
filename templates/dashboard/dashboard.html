@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusForge Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- =========================
+         Sidebar
+    ========================== -->
+
+    <aside class="sidebar">
+        <button class="menu-toggle">
+
+             <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+        <div class="logo">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+            
+
+            <h2>CampusForge</h2>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li class="active">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-user"></i>
+                    My Profile
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-code"></i>
+                    Coding
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-folder-open"></i>
+                    Projects
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-ranking-star"></i>
+                    Leaderboard
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-robot"></i>
+                    AI Coach
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class="logout">
+
+            <button>
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- =========================
+         Main Content
+    ========================== -->
+
+    <main class="main-content">
+
+        <!-- Top Navbar -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search projects, students, skills...">
+
+            </div>
+
+            <div class="top-actions">
+
+                <!-- <button>
+                    <i class="fa-regular fa-bell"></i>
+                </button> -->
+                <div class="notification-wrapper">
+
+    <button id="notificationBtn">
+
+        <i class="fa-regular fa-bell"></i>
+
+        <span class="notification-dot"></span>
+
+    </button>
+
+    <div class="notification-panel">
+
+        <h3>Notifications</h3>
+
+        <div class="notification-item">
+            🏆 You earned +50 XP
+        </div>
+
+        <div class="notification-item">
+            🔥 18 Day Streak Maintained
+        </div>
+
+        <div class="notification-item">
+            🚀 GitHub Synced Successfully
+        </div>
+
+        <div class="notification-item">
+            📅 Coding Contest Tomorrow
+        </div>
+
+    </div>
+
+</div>
+
+                
+                <button id="themeToggle">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+                <div class="profile" id="profileMenu">
+
+                    <img src="https://placehold.co/45x45" alt="Profile">
+
+                    <div>
+
+                        <h4>Aman</h4>
+
+                        <span>Computer Science</span>
+
+                    </div>
+
+                    <div class="profile-dropdown">
+
+                        <div>👤 My Profile</div>
+
+                        <div>⚙ Settings</div>
+
+                        <div>📊 Analytics</div>
+
+                        <div class="logout-item">🚪 Logout</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Hero -->
+
+        <section class="hero">
+
+            <div>
+
+                <h1>👋 Welcome back, Aman</h1>
+
+                <p>
+                    Keep building. Every project and every solved problem
+                    moves you closer to your goals.
+                </p>
+
+            </div>
+
+            <button>
+
+                Continue Learning
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </section>
+
+        <!-- Statistics -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-star"></i>
+
+                <h3>1250</h3>
+
+                <p>Total XP</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-ranking-star"></i>
+
+                <h3>#42</h3>
+
+                <p>Campus Rank</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-fire"></i>
+
+                <h3>18</h3>
+
+                <p>Day Streak</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                <h3>12</h3>
+
+                <p>Projects</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-code"></i>
+
+                <h3>356</h3>
+
+                <p>Problems Solved</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-award"></i>
+
+                <h3>15</h3>
+
+                <p>Badges</p>
+                <div class="trend">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    +15%
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Dashboard Grid -->
+
+        <!-- =========================================
+        DASHBOARD GRID
+========================================= -->
+
+<section class="dashboard-grid">
+
+    <!-- =========================================
+            GITHUB ACTIVITY
+    ========================================= -->
+
+    <div class="card activity-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Weekly Coding Activity</h2>
+                <p>Track your coding consistency</p>
+            </div>
+
+            <span class="streak">
+                🔥 18 Day Streak
+            </span>
+
+        </div>
+
+        <div class="heatmap">
+
+            <div class="day">Mon</div>
+
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+
+            <div class="day">Tue</div>
+
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+
+            <div class="day">Wed</div>
+
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+
+            <div class="day">Thu</div>
+
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+
+            <div class="day">Fri</div>
+
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+
+            <div class="day">Sat</div>
+
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+
+            <div class="day">Sun</div>
+
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+            <div class="box"></div>
+            <div class="box active"></div>
+            <div class="box active"></div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+            TODAY'S MISSION
+    ========================================= -->
+
+    <div class="card mission-card">
+
+        <h2>🎯 Today's Mission</h2>
+
+        <div class="mission-progress">
+
+            <div class="progress-info">
+
+                <span>4 / 5 Completed</span>
+
+                <span>80%</span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"></div>
+
+            </div>
+
+        </div>
+
+        <ul class="mission-list">
+
+            <li data-xp="50">
+                <input type="checkbox">
+                Solve 2 LeetCode Problems
+            </li>
+
+            <li data-xp="40">
+                <input type="checkbox">
+                Push Code to GitHub
+            </li>
+
+            <li data-xp="30">
+                <input type="checkbox">
+                Read System Design
+            </li>
+
+            <li data-xp="20">
+                <input type="checkbox">
+                Complete JavaScript Lesson
+            </li>
+
+            <li data-xp="60">
+                <input type="checkbox">
+                Deploy One Project
+            </li>
+
+</ul>
+
+        <div class="reward-box">
+
+            <h3>Reward</h3>
+
+            <p>+150 XP ⭐</p>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+            XP PROGRESS
+    ========================================= -->
+
+    <div class="card xp-card">
+
+        <h2>⚡ Level Progress</h2>
+
+        <div class="level-circle">
+
+            <h1>15</h1>
+
+            <span>LEVEL</span>
+
+        </div>
+
+        <div class="xp-info">
+
+            <div>
+
+                <strong>2380 XP</strong>
+
+                <span>Current XP</span>
+
+            </div>
+
+            <div>
+
+                <strong>620 XP</strong>
+
+                <span>Next Level</span>
+
+            </div>
+
+        </div>
+
+        <div class="xp-bar">
+
+            <div class="xp-fill"></div>
+
+        </div>
+
+        <p class="xp-text">
+
+            79% completed to Level 16
+
+        </p>
+
+    </div>
+    <!-- =========================================
+        AI COACH
+========================================= -->
+
+        <div class="card ai-card">
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <h2>AI Career Coach</h2>
+
+                    <p>Your personal mentor</p>
+
+                </div>
+
+            </div>
+
+            <div class="coach-message">
+
+                <h3>Hello Aman 👋</h3>
+
+                <p>
+                    Great consistency this week! Based on your activity,
+                    improving your DSA will increase your placement readiness.
+                </p>
+
+            </div>
+
+            <div class="recommendations">
+
+                <h4>Today's Recommendation</h4>
+
+                <ul>
+
+                    <li>✅ Solve 2 Medium LeetCode Problems</li>
+
+                    <li>🚀 Push one GitHub Repository</li>
+
+                    <li>📚 Complete JavaScript Module</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+<!-- =========================================
+        SKILL ANALYTICS
+========================================= -->
+
+<div class="card analytics-card">
+
+    <h2>📊 Skill Analytics</h2>
+
+    <div class="skill-item">
+
+        <div class="skill-top">
+
+            <span>Frontend</span>
+
+            <span>Level 12</span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div style="width:90%"></div>
+
+        </div>
+
+    </div>
+
+    <div class="skill-item">
+
+        <div class="skill-top">
+
+            <span>Backend</span>
+
+            <span>Level 8</span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div style="width:68%"></div>
+
+        </div>
+
+    </div>
+
+    <div class="skill-item">
+
+        <div class="skill-top">
+
+            <span>DSA</span>
+
+            <span>Level 15</span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div style="width:94%"></div>
+
+        </div>
+
+    </div>
+
+    <div class="skill-item">
+
+        <div class="skill-top">
+
+            <span>Cloud</span>
+
+            <span>Level 4</span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div style="width:35%"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+        LEADERBOARD
+========================================= -->
+
+<div class="card leaderboard-card">
+
+    <h2>🏆 Campus Leaderboard</h2>
+
+    <div class="leader">
+
+        <img src="https://i.pravatar.cc/60?img=12">
+
+        <div>
+
+            <h4>Rahul Sharma</h4>
+
+            <span>4250 XP</span>
+
+        </div>
+
+        <div class="trend up">
+
+            🔥35
+
+        </div>
+
+    </div>
+
+    <div class="leader">
+
+        <img src="https://i.pravatar.cc/60?img=15">
+
+        <div>
+
+            <h4>Aman</h4>
+
+            <span>4180 XP</span>
+
+        </div>
+
+        <div class="trend">
+
+            🔥28
+
+        </div>
+
+    </div>
+
+    <div class="leader">
+
+        <img src="https://i.pravatar.cc/60?img=20">
+
+        <div>
+
+            <h4>Aryan</h4>
+
+            <span>3900 XP</span>
+
+        </div>
+
+        <div class="trend">
+
+            🔥24
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+        UPCOMING EVENTS
+========================================= -->
+
+<div class="card events-card">
+
+    <h2>📅 Upcoming Events</h2>
+
+    <div class="event">
+
+        <h4>💻 Weekly Coding Contest</h4>
+
+        <span>Tomorrow • 7:00 PM</span>
+
+    </div>
+
+    <div class="event">
+
+        <h4>🤖 AI Hackathon</h4>
+
+        <span>3 Days Left</span>
+
+    </div>
+
+    <div class="event">
+
+        <h4>🚀 Resume Review Session</h4>
+
+        <span>Friday • 5:00 PM</span>
+
+    </div>
+
+</div>
+<div class="card quick-actions">
+
+    <h2>⚡ Quick Actions</h2>
+
+    <button>
+        <i class="fa-solid fa-folder-plus"></i>
+        Add New Project
+    </button>
+
+    <button>
+        <i class="fa-brands fa-github"></i>
+        Sync GitHub
+    </button>
+
+    <button>
+        <i class="fa-solid fa-file-arrow-up"></i>
+        Upload Certificate
+    </button>
+
+    <button>
+        <i class="fa-solid fa-code"></i>
+        Solve Daily Challenge
+    </button>
+
+</div>
+<div class="card achievements">
+
+<h2>🏅 Latest Achievements</h2>
+
+<div class="badge">
+
+🏆
+
+<div>
+
+<h4>100 Day Coding Streak</h4>
+
+<span>Earned Today</span>
+
+</div>
+
+</div>
+
+<div class="badge">
+
+⭐
+
+<div>
+
+<h4>Frontend Master</h4>
+
+<span>Level 10</span>
+
+</div>
+
+</div>
+
+<div class="badge">
+
+🚀
+
+<div>
+
+<h4>Project Builder</h4>
+
+<span>15 Projects Completed</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card placement">
+
+<h2>📈 Placement Readiness</h2>
+
+<h1>82%</h1>
+
+<p>Your profile is above average.</p>
+
+<div class="placement-bar">
+
+<div class="placement-fill"></div>
+
+</div>
+
+<ul>
+
+<li>✅ Resume Strong</li>
+
+<li>✅ GitHub Active</li>
+
+<li>⚠ Improve DSA</li>
+
+<li>⚠ Participate in Hackathons</li>
+
+</ul>
+
+</div>
+<div class="card timeline">
+
+<h2>🕒 Activity Timeline</h2>
+
+<div class="timeline-item">
+
+<div class="dot"></div>
+
+<div>
+
+<h4>Solved LeetCode 347</h4>
+
+<span>2 hours ago</span>
+
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="dot"></div>
+
+<div>
+
+<h4>Pushed GitHub Repository</h4>
+
+<span>Yesterday</span>
+
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="dot"></div>
+
+<div>
+
+<h4>Uploaded Portfolio</h4>
+
+<span>3 Days Ago</span>
+
+</div>
+
+</div>
+
+</div>
+        
+
+</section>
+
+    </main>
+
+</div>
+<div id="toast"></div>
+<!-- Achievement Popup -->
+
+<div id="achievementPopup" class="achievement-popup">
+
+    <div class="achievement-content">
+
+        <div class="achievement-icon">🏆</div>
+
+        <h2>Achievement Unlocked!</h2>
+
+        <p id="achievementText">
+
+            Coding Master
+
+        </p>
+
+    </div>
+
+</div>
+<div class="settings-modal" id="settingsModal">
+
+    <h2>⚙ Dashboard Settings</h2>
+
+    <br>
+
+    <label>
+
+        <input type="checkbox" id="animationToggle" checked>
+
+        Enable Animations
+
+    </label>
+
+    <br><br>
+
+    <label>
+
+        <input type="checkbox" checked>
+
+        Email Notifications
+
+    </label>
+
+    <br><br>
+
+    <button id="closeSettings">
+
+        Close
+
+    </button>
+
+</div>
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>
