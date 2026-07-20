@@ -1,0 +1,45 @@
+// https://codeforces.com/problemset/problem/160/A
+#include <iostream>
+#include <algorithm>
+#include <functional>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> arr;
+    int el;
+    
+    int total_sum = 0; // Renamed 'count' to 'total_sum' for clarity
+    for(int i = 0; i < n; i++){
+        cin >> el;
+        arr.push_back(el);
+        total_sum += el; // You can calculate the total sum right here!
+    }
+    
+    // Sort in descending order
+    sort(arr.begin(), arr.end(), greater<int>());
+    
+    // Target is exactly half of the total sum
+    int half = total_sum / 2;
+    
+    int current_sum = 0;
+    int coins_count = 0;
+    
+    for(int i = 0; i < n; i++){
+        current_sum += arr[i];
+        coins_count++; // Take the coin
+        
+        // Fix: Stop ONLY when your sum is strictly greater than half
+        if(current_sum > half){
+            break;
+        }
+    }
+    
+    cout << coins_count;
+    
+    return 0;
+}
