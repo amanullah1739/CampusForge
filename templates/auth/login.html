@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusForge Login</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/auth/login.css') }}">
 </head>
 <body>
 
@@ -54,6 +56,6 @@
     </div>
 
 </div>
-
+<script src="{{ url_for('static', filename='js/auth/auth.js') }}"></script>
 </body>
 </html>

@@ -8,7 +8,9 @@
 
     <title>CampusForge | Connect Accounts</title>
 
-    <link rel="stylesheet" href="connect.css">
+    {% comment %} <link rel="stylesheet" href="connect.css"> {% endcomment %}
+    <link rel="stylesheet"
+href="{{ url_for('static', filename='css/onboarding/connect.css') }}">
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -420,7 +422,8 @@
 
     </div>
 
-    <script src="connect.js"></script>
+    
+<script src="{{ url_for('static', filename='js/onboarding/connect.js') }}"></script>
 
 </body>
 

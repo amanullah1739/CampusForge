@@ -8,7 +8,9 @@
 
 <title>CampusForge | Skills</title>
 
-<link rel="stylesheet" href="skills.css">
+{% comment %} <link rel="stylesheet" href="skills.css"> {% endcomment %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/onboarding/skills.css') }}">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -163,7 +165,7 @@ Continue →
 
 </div>
 
-<script src="skills.js"></script>
+<script src="{{ url_for('static', filename='js/onboarding/skills.js') }}"></script>
 
 </body>
 

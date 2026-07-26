@@ -10,7 +10,9 @@
 
     <title>Success</title>
 
-    <link rel="stylesheet" href="success.css">
+    {% comment %} <link rel="stylesheet" href="success.css"> {% endcomment %}
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/auth/success.css') }}">
 
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">

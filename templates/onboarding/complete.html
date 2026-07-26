@@ -8,7 +8,9 @@
 
 <title>CampusForge | Profile Complete</title>
 
-<link rel="stylesheet" href="complete.css">
+{% comment %} <link rel="stylesheet" href="complete.css"> {% endcomment %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/onboarding/complete.css') }}">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -124,7 +126,7 @@ Explore Dashboard
 
 </div>
 
-<script src="complete.js"></script>
+<script src="{{ url_for('static', filename='js/onboarding/complete.js') }}"></script>
 
 </body>
 
