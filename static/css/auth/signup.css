@@ -13,24 +13,33 @@ body{
     justify-content:center;
     align-items:center;
 
-    height:100vh;
+    min-height:100vh;
 
+    padding:40px 20px;
 }
 
 .container{
 
-    width:90%;
-    max-width:1200px;
-    height:720px;
+    width:92%;
+    max-width:1280px;
+
+    min-height:760px;
 
     display:flex;
 
-    border-radius:20px;
+    background:white;
+
+    border-radius:24px;
+
     overflow:hidden;
 
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
+
+
+/* ========================= */
+/* Left Section */
+/* ========================= */
 
 .left{
 
@@ -40,7 +49,7 @@ body{
 
     color:white;
 
-    padding:70px;
+    padding:80px;
 
     display:flex;
     flex-direction:column;
@@ -51,54 +60,67 @@ body{
 .left h1{
 
     font-size:52px;
+    font-weight:700;
 
 }
 
 .tagline{
 
-    margin-top:15px;
+    margin-top:18px;
 
     font-size:22px;
+
+    opacity:.9;
 
 }
 
 .left h2{
 
-    margin-top:60px;
+    margin-top:70px;
 
-    font-size:46px;
+    font-size:50px;
+
+    line-height:1.15;
 
 }
 
 .desc{
 
-    margin-top:25px;
+    margin-top:32px;
 
-    line-height:35px;
+    line-height:1.8;
 
     font-size:20px;
 
+    max-width:520px;
+
+    opacity:.95;
+
 }
+
+
+/* ========================= */
+/* Right Section */
+/* ========================= */
 
 .right{
 
     flex:1;
-    
-    padding: 20px;
 
     background:white;
 
     display:flex;
     justify-content:center;
     align-items:center;
-    padding-top: 85px;
+
+    padding:60px 55px;
 
 }
 
 form{
 
-    width:80%;
-    /* padding:40px 0; */
+    width:100%;
+    max-width:430px;
 
 }
 
@@ -106,18 +128,24 @@ form h2{
 
     text-align:center;
 
-    margin-bottom:35px;
+    margin-bottom:45px;
 
-    font-size:35px;
+    font-size:36px;
 
-    
+    color:#111827;
+
 }
+
+
+/* ========================= */
+/* Input */
+/* ========================= */
 
 .input-box{
 
     position:relative;
 
-    margin-bottom:18px;
+    margin-bottom:22px;
 
 }
 
@@ -125,10 +153,10 @@ form h2{
 
     position:absolute;
 
-    left:15px;
+    left:18px;
     top:18px;
 
-    color:#666;
+    color:#777;
 
 }
 
@@ -136,23 +164,48 @@ form h2{
 
     width:100%;
 
-    padding:15px 15px 15px 45px;
+    padding:16px 18px 16px 50px;
 
-    border:1px solid #ddd;
+    border:1px solid #D7D7D7;
 
-    border-radius:12px;
+    border-radius:14px;
 
     font-size:15px;
 
+    transition:.25s ease;
+
+    background:white;
+
 }
+
+.input-box input:hover{
+
+    border-color:#BFBFBF;
+
+}
+
+.input-box input:focus{
+
+    outline:none;
+
+    border-color:#6558F5;
+
+    box-shadow:0 0 0 4px rgba(101,88,245,.12);
+
+}
+
+
+/* ========================= */
+/* Row */
+/* ========================= */
 
 .row{
 
     display:flex;
 
-    gap:15px;
+    gap:16px;
 
-    margin-bottom:18px;
+    margin-bottom:22px;
 
 }
 
@@ -160,61 +213,162 @@ form h2{
 
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
-    border-radius:12px;
+    border-radius:14px;
 
-    border:1px solid #ddd;
+    border:1px solid #D7D7D7;
+
+    background:white;
+
+    font-size:15px;
+
+    transition:.25s ease;
 
 }
+
+.row select:hover{
+
+    border-color:#BFBFBF;
+
+}
+
+.row select:focus{
+
+    outline:none;
+
+    border-color:#6558F5;
+
+    box-shadow:0 0 0 4px rgba(101,88,245,.12);
+
+}
+
+
+/* ========================= */
+/* Checkbox */
+/* ========================= */
 
 .check{
 
     display:flex;
 
+    align-items:center;
+
     gap:10px;
 
-    margin:18px 0;
+    margin:24px 0;
 
     font-size:15px;
 
+    color:#555;
+
 }
 
-button{
+.check input{
 
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#6558F5;
-
-    color:white;
-
-    font-size:18px;
+    accent-color:#6558F5;
 
     cursor:pointer;
 
 }
 
-button:hover{
+.check label{
 
-    background:#5748f2;
+    cursor:pointer;
 
 }
+
+
+/* ========================= */
+/* Main Button */
+/* ========================= */
+
+button{
+
+    width:100%;
+
+    padding:17px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#6558F5;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+
+}
+
+button:hover{
+
+    background:#5748F2;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(101,88,245,.25);
+
+}
+
+
+/* ========================= */
+/* Divider */
+/* ========================= */
 
 .divider{
 
     text-align:center;
 
-    margin:25px 0;
+    margin:34px 0;
 
     color:#777;
 
+    position:relative;
+
+    font-size:14px;
+
 }
+
+.divider::before,
+.divider::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    width:42%;
+
+    height:1px;
+
+    background:#E5E7EB;
+
+}
+
+.divider::before{
+
+    left:0;
+
+}
+
+.divider::after{
+
+    right:0;
+
+}
+
+
+/* ========================= */
+/* Social */
+/* ========================= */
 
 .social{
 
@@ -224,20 +378,40 @@ button:hover{
 
 }
 
-.google,
-.github{
+.social button{
 
     background:#F3F4F6;
 
     color:#333;
 
+    padding:15px;
+
+    font-weight:600;
+
 }
+
+.social button:hover{
+
+    background:#E9EAEE;
+
+    color:#111;
+
+    box-shadow:none;
+
+}
+
+
+/* ========================= */
+/* Login */
+/* ========================= */
 
 .login{
 
     text-align:center;
 
-    margin-top:25px;
+    margin-top:32px;
+
+    color:#555;
 
 }
 
@@ -248,5 +422,146 @@ button:hover{
     text-decoration:none;
 
     font-weight:bold;
+
+}
+
+.login a:hover{
+
+    text-decoration:underline;
+
+}
+
+
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media (max-width:1100px){
+
+    .container{
+
+        width:95%;
+
+    }
+
+    .left{
+
+        padding:60px;
+
+    }
+
+    .right{
+
+        padding:50px 40px;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    .container{
+
+        flex-direction:column;
+
+        min-height:auto;
+
+    }
+
+    .left{
+
+        padding:60px 40px;
+
+        text-align:center;
+
+        align-items:center;
+
+    }
+
+    .left h2{
+
+        font-size:40px;
+
+        margin-top:40px;
+
+    }
+
+    .desc{
+
+        max-width:100%;
+
+    }
+
+    .right{
+
+        padding:50px 30px;
+
+    }
+
+    form{
+
+        max-width:100%;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .left{
+
+        padding:40px 25px;
+
+    }
+
+    .left h1{
+
+        font-size:40px;
+
+    }
+
+    .left h2{
+
+        font-size:32px;
+
+    }
+
+    .tagline{
+
+        font-size:18px;
+
+    }
+
+    .desc{
+
+        font-size:16px;
+
+        line-height:1.7;
+
+    }
+
+    .right{
+
+        padding:35px 20px;
+
+    }
+
+    .row{
+
+        flex-direction:column;
+
+    }
+
+    form h2{
+
+        font-size:30px;
+
+    }
 
 }

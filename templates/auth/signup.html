@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusForge | Sign Up</title>
+
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='css/auth/signup.css') }}">
+          href="{{ url_for('static', filename='css/auth/signup.css') }}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
 
 <div class="container">
 
     <!-- Left Section -->
-
     <div class="left">
 
         <h1>CampusForge</h1>
@@ -36,33 +37,47 @@
     </div>
 
     <!-- Right Section -->
-
     <div class="right">
 
-        <form>
+        <form method="POST">
 
             <h2>Create Account</h2>
 
             <div class="input-box">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" placeholder="Full Name">
+                <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Full Name"
+                    autocomplete="name"
+                    required>
             </div>
 
             <div class="input-box">
                 <i class="fa-solid fa-id-card"></i>
-                <input type="text" placeholder="University Roll Number">
+                <input
+                    type="text"
+                    name="roll_number"
+                    placeholder="University Roll Number"
+                    autocomplete="off"
+                    required>
             </div>
 
             <div class="input-box">
                 <i class="fa-solid fa-envelope"></i>
-                <input type="email" placeholder="College Email">
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="College Email"
+                    autocomplete="email"
+                    required>
             </div>
 
             <div class="row">
 
-                <select>
+                <select name="branch" required>
 
-                    <option>Select Branch</option>
+                    <option value="">Select Branch</option>
                     <option>CSE</option>
                     <option>IT</option>
                     <option>ECE</option>
@@ -71,9 +86,9 @@
 
                 </select>
 
-                <select>
+                <select name="year" required>
 
-                    <option>Year</option>
+                    <option value="">Year</option>
                     <option>1st</option>
                     <option>2nd</option>
                     <option>3rd</option>
@@ -85,25 +100,40 @@
 
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" placeholder="Password">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    autocomplete="new-password"
+                    required>
             </div>
 
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" placeholder="Confirm Password">
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    autocomplete="new-password"
+                    required>
             </div>
 
             <div class="check">
 
-                <input type="checkbox">
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required>
 
-                <label>
+                <label for="terms">
                     I agree to the Terms & Conditions
                 </label>
 
             </div>
 
-            <button>Create Account</button>
+            <button type="submit">
+                Create Account
+            </button>
 
             <div class="divider">
                 OR
@@ -111,11 +141,11 @@
 
             <div class="social">
 
-                <button class="google">
+                <button type="button" class="google">
                     Google
                 </button>
 
-                <button class="github">
+                <button type="button" class="github">
                     GitHub
                 </button>
 
@@ -125,7 +155,7 @@
 
                 Already have an account?
 
-                <a href="index.html">Login</a>
+                <a href="{{ url_for('login') }}">Login</a>
 
             </p>
 
@@ -134,6 +164,8 @@
     </div>
 
 </div>
+
 <script src="{{ url_for('static', filename='js/auth/auth.js') }}"></script>
+
 </body>
 </html>
