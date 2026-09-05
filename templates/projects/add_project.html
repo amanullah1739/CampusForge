@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Project | CampusForge</title>
+</head>
+
+<body>
+
+    <h1>Add Your Project</h1>
+
+    
+    <form method="POST" action="{{ url_for('add_project') }}">
+
+        <div>
+            <label>Project Title</label>
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter project title"
+                required
+            >
+        </div>
+
+        <div>
+            <label>Description</label>
+            <textarea
+                name="description"
+                placeholder="Describe your project"
+            ></textarea>
+        </div>
+
+        <div>
+            <label>GitHub URL</label>
+            <input
+                type="url"
+                name="github_url"
+                placeholder="https://github.com/..."
+            >
+        </div>
+
+        <div>
+            <label>Live Project URL</label>
+            <input
+                type="url"
+                name="live_url"
+                placeholder="https://..."
+            >
+        </div>
+
+        <div>
+            <label>Tech Stack</label>
+            <input
+                type="text"
+                name="tech_stack"
+                placeholder="Python, Flask, PostgreSQL"
+            >
+        </div>
+
+        <div>
+            <label>Status</label>
+
+            <select name="status">
+                <option value="Completed">Completed</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Planned">Planned</option>
+            </select>
+        </div>
+
+        <button type="submit">
+            Add Project
+        </button>
+
+    </form>
+
+</body>
+</html>

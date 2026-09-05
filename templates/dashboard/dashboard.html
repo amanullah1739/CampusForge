@@ -123,7 +123,8 @@
 
         <div class="logout">
 
-            <button>
+            <button type="button"
+                onclick="window.location.href='{{ url_for('logout') }}'">
 
                 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -211,7 +212,7 @@
 
             <div>
 
-                <h4>Aman</h4>
+                <h4>{{ user.full_name }}</h4>
 
                 <span>Computer Science</span>
 
@@ -250,7 +251,7 @@
     <div>
 
         <h1>
-            👋 Welcome Back, Aman
+            👋 Welcome Back,  {{ user.full_name }}!
         </h1>
 
         <p>
@@ -288,7 +289,7 @@
 
         <i class="fa-solid fa-star"></i>
 
-        <h3>1250</h3>
+        <h3>{{ user.total_xp }}</h3>
 
         <p>Total XP</p>
 
@@ -328,9 +329,9 @@
 
         <i class="fa-solid fa-fire"></i>
 
-        <h3>18</h3>
+        <h3></h3>
 
-        <p>Day Streak</p>
+        <p>{{ user.streak }}</p>
 
         <div class="trend">
 
@@ -348,7 +349,7 @@
 
         <i class="fa-solid fa-folder-open"></i>
 
-        <h3>12</h3>
+        <h3>{{ project_count }}</h3>
 
         <p>Projects</p>
 
@@ -702,19 +703,19 @@
 
     <div class="leader">
 
-        <img src="https://i.pravatar.cc/60?img=15" alt="Aman">
+        <img src="https://i.pravatar.cc/60?img=15" alt="{{ user.full_name }}">
 
         <div>
 
-            <h4>Aman</h4>
+            <h4>{{ user.full_name }}</h4>
 
-            <span>4180 XP</span>
+            <span>{{ user.total_xp }} XP</span>
 
         </div>
 
         <div class="trend">
 
-            🔥28
+            🔥{{ user.streak }}
 
         </div>
 

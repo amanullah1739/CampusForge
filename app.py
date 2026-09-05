@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from config import Config
 from database import db, migrate
 from database.models.user import User
+from database.models.project import Project
 from flask_bcrypt import Bcrypt
 
 
@@ -27,9 +28,41 @@ migrate.init_app(app,db)
 # ==========================
 
 @app.route("/")
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+
+    if request.method == "POST":
+
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            flash("Invalid email or password.", "error")
+            return redirect(url_for("login"))
+
+        if not bcrypt.check_password_hash(
+            user.password_hash,
+            password
+        ):
+            flash("Invalid email or password.", "error")
+            return redirect(url_for("login"))
+
+        session["user_id"] = user.id
+
+        return redirect(url_for("dashboard"))
+
     return render_template("auth/login.html")
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    flash("You have been logged out successfully.", "success")
+
+    return redirect(url_for("login"))
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -169,7 +202,60 @@ def complete():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard/dashboard.html")
+
+    if "user_id" not in session:
+        flash("Please login to access your dashboard.", "error")
+        return redirect(url_for("login"))
+
+    user = User.query.get(session["user_id"])
+
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
+    project_count = Project.query.filter_by(
+        user_id=user.id
+    ).count()
+
+    return render_template(
+        "dashboard/dashboard.html",
+        user=user,
+        project_count=project_count
+    )
+    
+@app.route("/projects/add", methods=["GET", "POST"])
+def add_project():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        title = request.form.get("title")
+        description = request.form.get("description")
+        github_url = request.form.get("github_url")
+        live_url = request.form.get("live_url")
+        tech_stack = request.form.get("tech_stack")
+        status = request.form.get("status")
+
+        new_project = Project(
+            user_id=session["user_id"],
+            title=title,
+            description=description,
+            github_url=github_url,
+            live_url=live_url,
+            tech_stack=tech_stack,
+            status=status
+        )
+
+        db.session.add(new_project)
+        db.session.commit()
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("projects/add_project.html")
+
+
 
 # =========================================
 # RUN APPLICATION
