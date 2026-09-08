@@ -5,10 +5,15 @@ from database.models.user import User
 from database.models.project import Project
 from database.models.platform_account import PlatformAccount
 from flask_bcrypt import Bcrypt
+from database.services.platforms.sync_service import sync_codeforces_account
+
 from database.services.platform_verification import (
     generate_verification_code,
     get_verification_expiry
 )
+from database.models.platform_stats import PlatformStats
+from datetime import datetime, timezone
+from authlib.integrations.flask_client import OAuth
 
 
 
@@ -22,11 +27,22 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 bcrypt = Bcrypt(app)
+oauth = OAuth(app)
+oauth.register(
+    name="codeforces",
+    client_id=app.config["CODEFORCES_CLIENT_ID"],
+    client_secret=app.config["CODEFORCES_CLIENT_SECRET"],
+    server_metadata_url="https://codeforces.com/.well-known/openid-configuration",
+    client_kwargs={
+        "scope": "openid"
+    }
+)
 #=============================
 # DATABAASE
 #=============================
 db.init_app(app)
 migrate.init_app(app,db)
+
 
 # ==========================
 # Authentication
@@ -222,10 +238,28 @@ def dashboard():
         user_id=user.id
     ).count()
 
+    codeforces_account = PlatformAccount.query.filter_by(
+        user_id=user.id,
+        platform="Codeforces"
+    ).first()
+
+    codeforces_stats = None
+
+    if codeforces_account:
+        codeforces_stats = PlatformStats.query.filter_by(
+            platform_account_id=codeforces_account.id
+        ).first()
+    
+    connected_accounts = PlatformAccount.query.filter_by(
+        user_id=user.id
+    ).all()
+
     return render_template(
         "dashboard/dashboard.html",
         user=user,
-        project_count=project_count
+        project_count=project_count,
+        codeforces_stats=codeforces_stats,
+        connected_accounts=connected_accounts
     )
     
 @app.route("/projects/add", methods=["GET", "POST"])
@@ -346,11 +380,14 @@ def verify_platform(account_id):
         flash("Platform account not found.", "error")
         return redirect(url_for("platforms"))
 
+        
     verification_code = generate_verification_code()
+        
     expiry = get_verification_expiry()
 
     account.verification_code = verification_code
     account.verification_expires_at = expiry
+    account.verification_attempts = 0
     account.verified = False
 
     db.session.commit()
@@ -377,12 +414,62 @@ def sync_platform(account_id):
 
     if account.platform == "Codeforces":
 
-        from database.services.platforms.codeforces import get_codeforces_user
+        try:
 
-        user_data = get_codeforces_user(account.username)
+            sync_codeforces_account(account)
 
-        print("Codeforces Data:")
-        print(user_data)
+            flash(
+                "Codeforces stats synced successfully.",
+                "success"
+            )
+
+        except Exception as e:
+
+            print("Codeforces sync error:", e)
+
+            flash(
+                "Unable to sync Codeforces stats. Please try again.",
+                "error"
+            )
+
+        return redirect(url_for("dashboard"))
+    
+@app.route("/platforms/codeforces/authorize/<int:account_id>")
+def codeforces_authorize(account_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    account = PlatformAccount.query.filter_by(
+        id=account_id,
+        user_id=session["user_id"],
+        platform="Codeforces"
+    ).first()
+
+    if not account:
+        flash("Codeforces account not found.", "error")
+        return redirect(url_for("platforms"))
+
+    redirect_uri = url_for(
+        "codeforces_callback",
+        _external=True
+    )
+
+    return oauth.codeforces.authorize_redirect(
+        redirect_uri
+    )
+    
+@app.route("/platforms/codeforces/callback")
+def codeforces_callback():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    token = oauth.codeforces.authorize_access_token()
+
+    user_info = token.get("userinfo")
+
+    print("Codeforces User Info:", user_info)
 
     return redirect(url_for("platforms"))
 

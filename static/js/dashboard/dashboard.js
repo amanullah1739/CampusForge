@@ -649,3 +649,29 @@ console.log("History:",history);
 }
 
 analytics();
+
+document.querySelectorAll(".sync-btn").forEach(button => {
+
+    button.addEventListener("click", function () {
+
+        const url = this.getAttribute("data-sync-url");
+
+        console.log("Sync URL:", url);
+
+        if (!url) {
+            console.error("Sync URL not found!");
+            return;
+        }
+
+        this.disabled = true;
+
+        const icon = this.querySelector("i");
+        const text = this.querySelector("span");
+
+        icon.classList.add("fa-spin");
+        text.textContent = "Syncing...";
+
+        window.location.href = url;
+    });
+
+});

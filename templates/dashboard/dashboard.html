@@ -326,9 +326,9 @@
 
         <i class="fa-solid fa-fire"></i>
 
-        <h3></h3>
+        <h3>{{ user.streak }}</h3>
 
-        <p>{{ user.streak }}</p>
+        <p>Day Streak</p>
 
         <div class="trend">
 
@@ -366,7 +366,12 @@
 
         <i class="fa-solid fa-code"></i>
 
-        <h3>356</h3>
+        <h3>{% if codeforces_stats %}
+            {{ codeforces_stats.unique_problems_solved }}
+            {% else %}
+                0
+            {% endif %}
+        </h3>
 
         <p>Problems Solved</p>
 
@@ -399,6 +404,94 @@
         </div>
 
     </div>
+
+</section>
+
+
+<section class="connected-platforms">
+
+    <div class="section-header">
+        <h2>Connected Platforms</h2>
+
+        <a href="{{ url_for('platforms') }}">
+            Manage Platforms
+        </a>
+    </div>
+
+    {% if connected_accounts %}
+
+        {% for account in connected_accounts %}
+
+            <div class="platform-card">
+
+                <div class="platform-info">
+                    <h3>{{ account.platform }}</h3>
+                    <p>@{{ account.username }}</p>
+                    {% if codeforces_stats and codeforces_stats.last_synced %}
+                        <small>
+                            Last synced:
+                            {{ codeforces_stats.last_synced.strftime("%d %b %Y, %I:%M %p") }}
+                        </small>
+                    {% endif %}
+
+                    {% if account.verified %}
+                        <span>✓ Verified</span>
+                    {% else %}
+                        <span>Not Verified</span>
+                    {% endif %}
+                    <button type="button"
+                            class="sync-btn"
+                            onclick="syncPlatform(this, '{{ url_for('sync_platform', account_id=account.id) }}')">
+
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Sync Stats</span>
+
+                    </button>
+                </div>
+                
+
+                {% if account.platform == "Codeforces" and codeforces_stats %}
+
+                    <div class="platform-stats">
+
+                        <div>
+                            <strong>
+                                {{ codeforces_stats.unique_problems_solved }}
+                            </strong>
+                            <small>Problems Solved</small>
+                        </div>
+
+                        <div>
+                            <strong>
+                                {{ codeforces_stats.total_submissions }}
+                            </strong>
+                            <small>Submissions</small>
+                        </div>
+
+                        <div>
+                            <strong>
+                                {{ codeforces_stats.accepted_submissions }}
+                            </strong>
+                            <small>Accepted</small>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No coding platforms connected yet.</p>
+
+        <a href="{{ url_for('connect_platform') }}">
+            Connect Platform
+        </a>
+
+    {% endif %}
 
 </section>
 

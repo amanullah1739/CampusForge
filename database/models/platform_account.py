@@ -37,9 +37,14 @@ class PlatformAccount(db.Model):
         default=False
     )
     
+    verification_attempts = db.Column(
+        db.Integer,
+        default=0
+    )
+    
     verification_code = db.Column(
-    db.String(20),
-    nullable=True
+        db.String(20),
+        nullable=True
     )
 
     verification_expires_at = db.Column(
