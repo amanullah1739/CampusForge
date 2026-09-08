@@ -359,6 +359,32 @@ def verify_platform(account_id):
         "platforms/verify.html",
         account=account
     )
+    
+@app.route("/platforms/sync/<int:account_id>")
+def sync_platform(account_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    account = PlatformAccount.query.filter_by(
+        id=account_id,
+        user_id=session["user_id"]
+    ).first()
+
+    if not account:
+        flash("Platform account not found.", "error")
+        return redirect(url_for("platforms"))
+
+    if account.platform == "Codeforces":
+
+        from database.services.platforms.codeforces import get_codeforces_user
+
+        user_data = get_codeforces_user(account.username)
+
+        print("Codeforces Data:")
+        print(user_data)
+
+    return redirect(url_for("platforms"))
 
 
 
