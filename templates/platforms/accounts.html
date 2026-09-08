@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connected Platforms | CampusForge</title>
+</head>
+
+<body>
+
+    <h1>Connected Platforms</h1>
+
+    <a href="{{ url_for('connect_platform') }}">
+        + Connect Platform
+    </a>
+
+    <hr>
+
+    {% if accounts %}
+
+        {% for account in accounts %}
+
+            <div>
+
+                <h2>{{ account.platform }}</h2>
+
+                <p>
+                    Username: {{ account.username }}
+                </p>
+
+                {% if account.verified %}
+
+                    <p>✅ Verified</p>
+
+                {% else %}
+
+                    <p>⚠️ Not Verified</p>
+
+                    <a href="{{ url_for('verify_platform', account_id=account.id) }}">
+                        Verify
+                    </a>
+
+                {% endif %}
+
+                {% if account.profile_url %}
+
+                    <a href="{{ account.profile_url }}"
+                       target="_blank">
+                        View Profile
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No coding platforms connected yet.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

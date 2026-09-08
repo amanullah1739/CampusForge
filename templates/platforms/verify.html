@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Platform</title>
+</head>
+
+<body>
+
+    <h1>Verify {{ account.platform }}</h1>
+
+    <p>Username: {{ account.username }}</p>
+
+    <h2>Your Verification Code</h2>
+
+    <h3>{{ account.verification_code }}</h3>
+
+    <p>
+        This code expires in 15 minutes.
+    </p>
+
+    <p>
+        Use this code to prove that you own this coding platform account.
+    </p>
+
+    <a href="{{ url_for('platforms') }}">
+        Back to Connected Accounts
+    </a>
+
+</body>
+</html>

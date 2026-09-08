@@ -3,7 +3,12 @@ from config import Config
 from database import db, migrate
 from database.models.user import User
 from database.models.project import Project
+from database.models.platform_account import PlatformAccount
 from flask_bcrypt import Bcrypt
+from database.services.platform_verification import (
+    generate_verification_code,
+    get_verification_expiry
+)
 
 
 
@@ -254,6 +259,108 @@ def add_project():
         return redirect(url_for("dashboard"))
 
     return render_template("projects/add_project.html")
+
+@app.route("/platforms")
+def platforms():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    accounts = PlatformAccount.query.filter_by(
+        user_id=session["user_id"]
+    ).all()
+
+    return render_template(
+        "platforms/accounts.html",
+        accounts=accounts
+    )
+
+@app.route("/platforms/connect", methods=["GET", "POST"])
+def connect_platform():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        platform = request.form.get("platform")
+        username = request.form.get("username")
+
+        if not platform or not username:
+            flash("Please fill in all fields.", "error")
+            return redirect(url_for("connect_platform"))
+
+        profile_url = None
+
+        if platform == "LeetCode":
+            profile_url = f"https://leetcode.com/u/{username}/"
+
+        elif platform == "Codeforces":
+            profile_url = f"https://codeforces.com/profile/{username}"
+
+        existing_account = PlatformAccount.query.filter_by(
+            user_id=session["user_id"],
+            platform=platform
+        ).first()
+
+        if existing_account:
+
+            existing_account.username = username
+            existing_account.profile_url = profile_url
+            existing_account.verified = False
+
+        else:
+
+            new_account = PlatformAccount(
+                user_id=session["user_id"],
+                platform=platform,
+                username=username,
+                profile_url=profile_url
+            )
+
+            db.session.add(new_account)
+
+        db.session.commit()
+
+        flash(
+            f"{platform} account connected successfully.",
+            "success"
+        )
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("platforms/connect.html")
+
+@app.route("/platforms/verify/<int:account_id>")
+def verify_platform(account_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    account = PlatformAccount.query.filter_by(
+        id=account_id,
+        user_id=session["user_id"]
+    ).first()
+
+    if not account:
+        flash("Platform account not found.", "error")
+        return redirect(url_for("platforms"))
+
+    verification_code = generate_verification_code()
+    expiry = get_verification_expiry()
+
+    account.verification_code = verification_code
+    account.verification_expires_at = expiry
+    account.verified = False
+
+    db.session.commit()
+
+    return render_template(
+        "platforms/verify.html",
+        account=account
+    )
+
+
 
 
 

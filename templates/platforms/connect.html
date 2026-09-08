@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connect Platforms | CampusForge</title>
+</head>
+
+<body>
+
+    <h1>Connect Coding Platforms</h1>
+
+    <p>
+        Connect your coding profiles to automatically track your progress.
+    </p>
+
+    <form method="POST" action="{{ url_for('connect_platform') }}">
+
+        <div>
+            <label>Platform</label>
+
+            <select name="platform" required>
+                <option value="">Select Platform</option>
+                <option value="LeetCode">LeetCode</option>
+                <option value="Codeforces">Codeforces</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Username / Handle</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required
+            >
+        </div>
+
+        <button type="submit">
+            Connect Account
+        </button>
+
+    </form>
+
+</body>
+
+</html>
