@@ -14,6 +14,8 @@ from database.services.platform_verification import (
 from database.models.platform_stats import PlatformStats
 from datetime import datetime, timezone
 from authlib.integrations.flask_client import OAuth
+from utils.decorators import admin_required
+
 
 
 
@@ -49,6 +51,85 @@ migrate.init_app(app,db)
 # ==========================
 
 @app.route("/")
+
+@app.route("/admin/dashboard")
+@admin_required
+def admin_dashboard():
+
+    user = User.query.get(session["user_id"])
+
+    college = user.college
+
+    total_students = User.query.filter_by(
+        college_id=college.id,
+        role="student"
+    ).count()
+
+    total_projects = Project.query.join(
+        User,
+        Project.user_id == User.id
+    ).filter(
+        User.college_id == college.id,
+        User.role == "student"
+    ).count()
+    total_problems = db.session.query(
+        db.func.coalesce(
+            db.func.sum(PlatformStats.unique_problems_solved),
+            0
+        )
+    ).join(
+        PlatformAccount,
+        PlatformStats.platform_account_id == PlatformAccount.id
+    ).join(
+        User,
+        PlatformAccount.user_id == User.id
+    ).filter(
+        User.college_id == college.id,
+        User.role == "student"
+    ).scalar()
+    total_submissions = db.session.query(
+        db.func.coalesce(
+            db.func.sum(PlatformStats.total_submissions),
+            0
+        )
+    ).join(
+        PlatformAccount,
+        PlatformStats.platform_account_id == PlatformAccount.id
+    ).join(
+        User,
+        PlatformAccount.user_id == User.id
+    ).filter(
+        User.college_id == college.id,
+        User.role == "student"
+    ).scalar()
+    return render_template(
+        "admin/dashboard.html",
+        college=college,
+        total_students=total_students,
+        total_projects=total_projects,
+        total_problems=total_problems,
+        total_submissions=total_submissions
+)
+@app.route("/admin/students")
+@admin_required
+def admin_students():
+    
+
+    admin = User.query.get(session["user_id"])
+
+    students = User.query.filter_by(
+        college_id=admin.college_id,
+        role="student"
+    ).order_by(
+        User.full_name.asc()
+    ).all()
+
+    return render_template(
+        "admin/students.html",
+        students=students,
+        college=admin.college
+    )
+    
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -56,6 +137,7 @@ def login():
 
         email = request.form.get("email")
         password = request.form.get("password")
+        login_type = request.form.get("login_type", "student")
 
         user = User.query.filter_by(email=email).first()
 
@@ -70,7 +152,18 @@ def login():
             flash("Invalid email or password.", "error")
             return redirect(url_for("login"))
 
+        if login_type == "student" and user.role != "student":
+            flash("Please use Admin Login for this account.", "error")
+            return redirect(url_for("login"))
+
+        if login_type == "admin" and user.role != "admin":
+            flash("Please use Student Login for this account.", "error")
+            return redirect(url_for("login"))
+
         session["user_id"] = user.id
+
+        if user.role == "admin":
+            return redirect(url_for("admin_dashboard"))
 
         return redirect(url_for("dashboard"))
 
@@ -261,6 +354,8 @@ def dashboard():
         codeforces_stats=codeforces_stats,
         connected_accounts=connected_accounts
     )
+    
+
     
 @app.route("/projects/add", methods=["GET", "POST"])
 def add_project():
@@ -474,12 +569,10 @@ def codeforces_callback():
     return redirect(url_for("platforms"))
 
 
-
-
-
 # =========================================
 # RUN APPLICATION
 # =========================================
 
 if __name__ == "__main__":
     app.run(debug=True)
+    

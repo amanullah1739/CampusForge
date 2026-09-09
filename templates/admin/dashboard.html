@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | CampusForge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin/dashboard.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+    <header class="admin-header">
+
+        <div>
+            <h1>Welcome, Admin 👋</h1>
+
+            <p>
+                {{ college.name }}
+            </p>
+        </div>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </header>
+
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+                <h3>{{ total_students }}</h3>
+                <p>Total Students</p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-diagram-project"></i>
+            </div>
+
+            <div>
+                <h3>{{ total_projects }}</h3>
+                <p>Total Projects</p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+
+            <div>
+                <h3>{{ total_problems }}</h3>
+                <p>Problems Solved</p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <div>
+                <h3>{{ total_submissions }}</h3>
+                <p>Total Submissions</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="dashboard-section">
+
+        <h2>College Overview</h2>
+
+        <p>
+            Track student coding activity, projects,
+            and overall technical growth.
+        </p>
+
+    </section>
+
+</div>
+
+</body>
+
+</html>

@@ -42,6 +42,32 @@
         <form method="POST">
 
             <h2>Create Account</h2>
+            <div class="signup-type">
+
+                <button type="button"
+                        class="signup-type-btn active"
+                        onclick="selectSignupType('student')">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+                    Student
+
+                </button>
+
+                <button type="button"
+                        class="signup-type-btn"
+                        onclick="selectSignupType('admin')">
+
+                    <i class="fa-solid fa-user-tie"></i>
+                    Admin
+
+                </button>
+
+            </div>
+
+<input type="hidden"
+       name="signup_type"
+       id="signup_type"
+       value="student">
 
             <div class="input-box">
                 <i class="fa-solid fa-user"></i>

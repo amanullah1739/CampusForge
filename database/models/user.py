@@ -54,6 +54,26 @@ class User(db.Model):
         db.String(255),
         nullable=False
     )
+    
+    role = db.Column(
+        db.String(20),
+        nullable=False,
+        default="student"
+    )
+    
+    college_id = db.Column(
+        db.Integer,
+        db.ForeignKey("colleges.id"),
+        nullable=True
+    )
+    
+    college = db.relationship(
+        "College",
+        back_populates="users"
+    )
+    
+
+    
 
     # =========================================
     # GAMIFICATION

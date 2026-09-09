@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusForge Login</title>
-    
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/theme.css') }}">
     <link rel="stylesheet"
     href="{{ url_for('static', filename='css/auth/login.css') }}">
 </head>
@@ -22,14 +25,27 @@
     <div class="login-card">
 
         <h1>Login</h1>
+            <div class="login-type">
+                <button type="button" class="login-type-btn active" onclick="selectLoginType('student')">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    Student
+                </button>
 
-        <form method="POST" action="{{ url_for('login') }}">
+                <button type="button" class="login-type-btn" onclick="selectLoginType('admin')">
+                    <i class="fa-solid fa-user-tie"></i>
+                    Admin
+                </button>
+            </div>
+
+        <form method="POST" action="{{ url_for('login') }}" autocomplete="off">
+            <input type="hidden" name="login_type" id="login_type" value="student">
 
             <div class="input-box">
                 <label>Email</label>
                 <input type="email"
                         name="email"
                         placeholder="Enter your email"
+                        autocomplete="off"
                         required>
             </div>
 
@@ -41,12 +57,13 @@
                         id="password"
                         name="password"
                         placeholder="Enter your password"
+                        
                         required>
 
                     <button type="button"
-                                class="toggle-password"
-                                onclick="togglePassword()">
-                            👁️
+                        class="toggle-password"
+                        onclick="togglePassword()">
+                        <i class="fa-solid fa-eye"></i>
                     </button>
                 </div>
             </div>
@@ -78,17 +95,40 @@ function togglePassword() {
 
     const passwordInput = document.getElementById("password");
     const toggleButton = document.querySelector(".toggle-password");
+    const icon = toggleButton.querySelector("i");
 
     if (passwordInput.type === "password") {
 
         passwordInput.type = "text";
-        toggleButton.textContent = "🙈";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
 
     } else {
 
         passwordInput.type = "password";
-        toggleButton.textContent = "👁️";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
+}
+
+function selectLoginType(type) {
+
+    const buttons = document.querySelectorAll(".login-type-btn");
+    const loginType = document.getElementById("login_type");
+
+    buttons.forEach(button => {
+        button.classList.remove("active");
+    });
+
+    if (type === "student") {
+        buttons[0].classList.add("active");
+    } else {
+        buttons[1].classList.add("active");
+    }
+
+    loginType.value = type;
 }
 </script>
 </body>
