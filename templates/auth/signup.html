@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusForge | Sign Up</title>
-
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/auth/signup.css') }}">
+        href="{{ url_for('static', filename='css/theme.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/auth/signup.css') }}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
@@ -78,19 +79,18 @@
                     autocomplete="name"
                     required>
             </div>
+            <div class="input-box" id="college-field">
+                <i class="fa-solid fa-building-columns"></i>
 
-            <div class="input-box">
-                <i class="fa-solid fa-id-card"></i>
-                <input
-                    type="text"
-                    name="roll_number"
-                    placeholder="University Roll Number"
-                    autocomplete="off"
-                    required>
+                <select name="college_id">
+                    <option value="">Select College</option>
+                    <option value="1">CampusForge Demo College</option>
+                </select>
+                
             </div>
-
             <div class="input-box">
                 <i class="fa-solid fa-envelope"></i>
+
                 <input
                     type="email"
                     name="email"
@@ -99,30 +99,47 @@
                     required>
             </div>
 
-            <div class="row">
+            <div id="student-fields">
 
-                <select name="branch" required>
+                <div class="input-box">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input
+                        type="text"
+                        name="roll_number"
+                        placeholder="University Roll Number"
+                        autocomplete="off">
+                </div>
 
-                    <option value="">Select Branch</option>
-                    <option>CSE</option>
-                    <option>IT</option>
-                    <option>ECE</option>
-                    <option>EEE</option>
-                    <option>ME</option>
+                
 
-                </select>
+                
 
-                <select name="year" required>
+                <div class="row">
 
-                    <option value="">Year</option>
-                    <option>1st</option>
-                    <option>2nd</option>
-                    <option>3rd</option>
-                    <option>4th</option>
+                    <select name="branch" required>
 
-                </select>
+                        <option value="">Select Branch</option>
+                        <option>CSE</option>
+                        <option>IT</option>
+                        <option>ECE</option>
+                        <option>EEE</option>
+                        <option>ME</option>
 
+                    </select>
+
+                    <select name="year" required>
+
+                        <option value="">Year</option>
+                        <option>1st</option>
+                        <option>2nd</option>
+                        <option>3rd</option>
+                        <option>4th</option>
+
+                    </select>
+
+                </div>
             </div>
+            
 
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
