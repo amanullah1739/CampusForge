@@ -178,13 +178,11 @@
 
                     </div>
 
-                    <button class="connect-btn">
-
-                        <i class="fa-solid fa-link"></i>
-
-                        Connect
-
-                    </button>
+                    <a href="{{ url_for('connect_platform') }}?platform=LeetCode"
+                        class="connect-btn">
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                    </a>
 
                 </div>
 
@@ -220,13 +218,11 @@
 
                     </div>
 
-                    <button class="connect-btn">
-
+                    <a href="{{ url_for('connect_platform') }}?platform=Codeforces"
+                    class="connect-btn">
                         <i class="fa-solid fa-link"></i>
-
                         Connect
-
-                    </button>
+                    </a>
 
                 </div>
 
@@ -390,7 +386,7 @@
 
             <div class="footer">
 
-                <a href="skills.html" class="back">
+                <a href="{{ url_for('skills') }}" class="back">
 
                     <i class="fa-solid fa-arrow-left"></i>
 

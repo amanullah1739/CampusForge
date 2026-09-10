@@ -23,8 +23,16 @@
 
             <select name="platform" required>
                 <option value="">Select Platform</option>
-                <option value="LeetCode">LeetCode</option>
-                <option value="Codeforces">Codeforces</option>
+
+                <option value="LeetCode"
+                    {% if platform == "LeetCode" %}selected{% endif %}>
+                    LeetCode
+                </option>
+
+                <option value="Codeforces"
+                    {% if platform == "Codeforces" %}selected{% endif %}>
+                    Codeforces
+                </option>
             </select>
         </div>
 

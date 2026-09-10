@@ -32,6 +32,10 @@ class PlatformStats(db.Model):
         db.Integer,
         default=0
     )
+    
+    easy_problems = db.Column(db.Integer, default=0)
+    medium_problems = db.Column(db.Integer, default=0)
+    hard_problems = db.Column(db.Integer, default=0)
 
     rating = db.Column(
         db.Integer,

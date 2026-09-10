@@ -16,7 +16,9 @@ def admin_required(f):
         if not user:
             session.clear()
             return redirect(url_for("login"))
-
+        print("SESSION USER ID:", session["user_id"])
+        print("USER EMAIL:", user.email)
+        print("USER ROLE:", user.role)
         if user.role != "admin":
             flash("Admin access required.", "error")
             return redirect(url_for("dashboard"))

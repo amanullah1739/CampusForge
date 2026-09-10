@@ -84,7 +84,12 @@
 
                 <select name="college_id">
                     <option value="">Select College</option>
-                    <option value="1">CampusForge Demo College</option>
+
+                    {% for college in colleges %}
+                        <option value="{{ college.id }}">
+                            {{ college.name }}
+                        </option>
+                    {% endfor %}
                 </select>
                 
             </div>

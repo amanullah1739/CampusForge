@@ -2,7 +2,7 @@
 // CampusForge Connect Accounts
 // ===============================
 
-const connectButtons = document.querySelectorAll(".connect-btn");
+const connectButtons = document.querySelectorAll("button.connect-btn");
 const syncButtons = document.querySelectorAll(".sync-btn");
 
 const progressBar = document.querySelector(".progress");

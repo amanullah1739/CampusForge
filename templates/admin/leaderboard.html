@@ -3,27 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <title>Students | CampusForge</title>
+    <title>Leaderboard | CampusForge</title>
 </head>
 
 <body>
 
     <h1>{{ college.name }}</h1>
 
-    <h2>Students</h2>
+    <h2>Student Leaderboard</h2>
 
     {% if students %}
 
         {% for student in students %}
 
             <div>
-                <h3>{{ student.full_name }}</h3>
 
-                <p>Email: {{ student.email }}</p>
+                <h3>
+                    #{{ loop.index }}
+                    {{ student.full_name }}
+                </h3>
 
                 <p>
-                    Roll Number: {{ student.roll_number }}
+                    Email: {{ student.email }}
                 </p>
 
                 <p>
@@ -31,20 +32,9 @@
                 </p>
 
                 <p>
-                    Year: {{ student.year }}
-                </p>
-
-                <p>
                     XP: {{ student.total_xp }}
                 </p>
 
-                <p>
-                    Projects: {{ student_project_counts[student.id] }}
-                </p>
-
-                <p>
-                    Problems Solved: {{ student_coding_stats[student.id] }}
-                </p>
             </div>
 
             <hr>

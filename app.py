@@ -8,6 +8,10 @@ from flask import (
     session
 )
 
+from database.services.leetcode_service import (
+    sync_leetcode_account
+)
+
 from config import Config
 
 from database import db, migrate
@@ -31,7 +35,8 @@ from flask_bcrypt import Bcrypt
 from authlib.integrations.flask_client import OAuth
 
 from utils.decorators import admin_required
-
+from database.models.college import College
+from database.models.user_skill import UserSkill
 
 # =========================================================
 # CREATE FLASK APPLICATION
@@ -330,16 +335,20 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        # =========================================
-        # SUCCESS
-        # =========================================
+        session["user_id"] = new_user.id
 
         return redirect(
-            url_for("login")
+            url_for("welcome")
         )
 
+
+    colleges = College.query.order_by(
+        College.name.asc()
+    ).all()
+
     return render_template(
-        "auth/signup.html"
+        "auth/signup.html",
+        colleges=colleges
     )
 
 
@@ -499,6 +508,7 @@ def admin_students():
     admin = User.query.get(
         session["user_id"]
     )
+    
 
     students = User.query.filter_by(
         college_id=admin.college_id,
@@ -506,9 +516,59 @@ def admin_students():
     ).order_by(
         User.full_name.asc()
     ).all()
+    
+    student_project_counts = {}
+
+    for student in students:
+
+        student_project_counts[student.id] = Project.query.filter_by(
+            user_id=student.id
+        ).count()
+        
+    student_coding_stats = {}
+
+    for student in students:
+
+        accounts = PlatformAccount.query.filter_by(
+            user_id=student.id
+        ).all()
+
+        total_problems = 0
+
+        for account in accounts:
+
+            stats = PlatformStats.query.filter_by(
+                platform_account_id=account.id
+            ).first()
+
+            if stats:
+                total_problems += stats.unique_problems_solved or 0
+
+        student_coding_stats[student.id] = total_problems
 
     return render_template(
         "admin/students.html",
+        students=students,
+        college=admin.college,
+        student_project_counts=student_project_counts,
+        student_coding_stats=student_coding_stats
+    )
+    
+@app.route("/admin/leaderboard")
+@admin_required
+def admin_leaderboard():
+
+    admin = User.query.get(session["user_id"])
+
+    students = User.query.filter_by(
+        college_id=admin.college_id,
+        role="student"
+    ).order_by(
+        User.total_xp.desc()
+    ).all()
+
+    return render_template(
+        "admin/leaderboard.html",
         students=students,
         college=admin.college
     )
@@ -564,18 +624,24 @@ def dashboard():
     # CODEFORCES ACCOUNT
     # =========================================
 
-    codeforces_account = PlatformAccount.query.filter_by(
-        user_id=user.id,
-        platform="Codeforces"
-    ).first()
+    platform_stats = []
 
-    codeforces_stats = None
+    connected_accounts = PlatformAccount.query.filter_by(
+        user_id=user.id
+    ).all()
 
-    if codeforces_account:
+    for account in connected_accounts:
 
-        codeforces_stats = PlatformStats.query.filter_by(
-            platform_account_id=codeforces_account.id
+        stats = PlatformStats.query.filter_by(
+            platform_account_id=account.id
         ).first()
+
+        if stats:
+            platform_stats.append({
+                "platform": account.platform,
+                "username": account.username,
+                "stats": stats
+            })
 
     # =========================================
     # CONNECTED ACCOUNTS
@@ -589,8 +655,7 @@ def dashboard():
         "dashboard/dashboard.html",
         user=user,
         project_count=project_count,
-        codeforces_stats=codeforces_stats,
-        connected_accounts=connected_accounts
+        platform_stats=platform_stats
     )
 
 
@@ -749,8 +814,11 @@ def connect_platform():
             url_for("dashboard")
         )
 
+    platform = request.args.get("platform")
+
     return render_template(
-        "platforms/connect.html"
+        "platforms/connect.html",
+        platform=platform
     )
 
 
@@ -861,6 +929,35 @@ def sync_platform(account_id):
         return redirect(
             url_for("dashboard")
         )
+        
+    if account.platform == "LeetCode":
+
+        try:
+
+            sync_leetcode_account(
+                account
+            )
+
+            flash(
+                "LeetCode stats synced successfully.",
+                "success"
+            )
+
+        except Exception as e:
+
+            print(
+                "LeetCode sync error:",
+                e
+            )
+
+            flash(
+                "Unable to sync LeetCode stats. Please try again.",
+                "error"
+            )
+
+        return redirect(
+            url_for("dashboard")
+        )
 
     return redirect(
         url_for("dashboard")
@@ -964,11 +1061,41 @@ def welcome():
 # BASIC INFORMATION
 # -------------------------
 
-@app.route("/basic-info")
+@app.route("/basic-info", methods=["GET", "POST"])
 def basic_info():
 
+    if "user_id" not in session:
+        return redirect(url_for("signup"))
+
+    user = User.query.get(session["user_id"])
+
+    if not user:
+        session.clear()
+        return redirect(url_for("signup"))
+
+    if request.method == "POST":
+
+        user.full_name = request.form.get("full_name")
+        user.roll_number = request.form.get("roll_number")
+        user.email = request.form.get("college_email")
+        user.phone_number = request.form.get("phone_number")
+        user.college_id = request.form.get("college_id")
+        user.branch = request.form.get("branch")
+        user.year = request.form.get("year")
+        user.section = request.form.get("section")
+
+        db.session.commit()
+
+        return redirect(url_for("skills"))
+
+    colleges = College.query.order_by(
+        College.name.asc()
+    ).all()
+
     return render_template(
-        "onboarding/basic-info.html"
+        "onboarding/basic-info.html",
+        user=user,
+        colleges=colleges
     )
 
 
@@ -976,12 +1103,34 @@ def basic_info():
 # SKILLS
 # -------------------------
 
-@app.route("/skills")
+@app.route("/skills", methods=["GET", "POST"])
 def skills():
 
-    return render_template(
-        "onboarding/skills.html"
-    )
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        selected_skills = request.form.getlist("skills")
+
+        # Purani skills remove karo
+        UserSkill.query.filter_by(
+            user_id=session["user_id"]
+        ).delete()
+
+        # New selected skills save karo
+        for skill in selected_skills:
+            new_skill = UserSkill(
+                user_id=session["user_id"],
+                skill=skill
+            )
+            db.session.add(new_skill)
+
+        db.session.commit()
+
+        return redirect(url_for("connect"))
+
+    return render_template("onboarding/skills.html")
 
 
 # -------------------------

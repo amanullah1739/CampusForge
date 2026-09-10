@@ -44,7 +44,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
         </p>
 
-        <form>
+        <form method="POST" action="{{ url_for('basic_info') }}">
 
             <div class="row">
 
@@ -52,7 +52,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Full Name</label>
 
-                    <input type="text" placeholder="Enter your full name">
+                    <input type="text" name="full_name" placeholder="Enter your full name">
 
                 </div>
 
@@ -60,7 +60,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Roll Number</label>
 
-                    <input type="text" placeholder="University Roll Number">
+                    <input type="text" name="roll_number" placeholder="University Roll Number">
 
                 </div>
 
@@ -72,7 +72,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>College Email</label>
 
-                    <input type="email" placeholder="College Email">
+                    <input type="email" name="college_email" placeholder="College Email">
 
                 </div>
 
@@ -80,7 +80,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Phone Number</label>
 
-                    <input type="text" placeholder="Phone Number">
+                    <input type="text" name="phone_number" placeholder="Phone Number">
 
                 </div>
 
@@ -92,16 +92,14 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>College</label>
 
-                    <select>
+                    <select name="college_id">
+                        <option value="">Select College</option>
 
-                        <option>Select College</option>
-
-                        <option>Dev Bhoomi Uttarakhand University</option>
-
-                        <option>Graphic Era University</option>
-
-                        <option>DIT University</option>
-
+                        {% for college in colleges %}
+                            <option value="{{ college.id }}">
+                                {{ college.name }}
+                            </option>
+                        {% endfor %}
                     </select>
 
                 </div>
@@ -110,7 +108,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Department</label>
 
-                    <select>
+                    <select name="branch">
 
                         <option>Select Department</option>
 
@@ -134,7 +132,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Year</label>
 
-                    <select>
+                    <select name="year">
 
                         <option>Select Year</option>
 
@@ -154,7 +152,7 @@ href="{{ url_for('static', filename='css/onboarding/basic-info.css') }}">
 
                     <label>Section</label>
 
-                    <select>
+                    <select name="section">
 
                         <option>Select Section</option>
 

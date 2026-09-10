@@ -45,6 +45,16 @@ class User(db.Model):
         db.String(20),
         nullable=False
     )
+    
+    phone_number = db.Column(
+        db.String(20),
+        nullable=True
+    )
+
+    section = db.Column(
+        db.String(20),
+        nullable=True
+    )
 
     # =========================================
     # AUTHENTICATION
