@@ -2,20 +2,52 @@
 // CampusForge Connect Accounts
 // ===============================
 
+
+// ===============================
+// DOM ELEMENTS
+// ===============================
+
 const connectButtons = document.querySelectorAll("button.connect-btn");
+
 const syncButtons = document.querySelectorAll(".sync-btn");
 
 const progressBar = document.querySelector(".progress");
-const completionText = document.querySelector(".completion small");
 
-let connectedAccounts = document.querySelectorAll(".account.connected").length;
-const totalAccounts = document.querySelectorAll(".account").length;
+const completionText =
+    document.querySelector(".completion small");
+
+let connectedAccounts =
+    document.querySelectorAll(".account.connected").length;
+
+const totalAccounts =
+    document.querySelectorAll(".account").length;
+
 
 // ===============================
-// Toast Notification
+// CONNECT MODAL ELEMENTS
 // ===============================
 
-function showToast(message){
+const modal =
+    document.getElementById("connectModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const modalPlatform =
+    document.getElementById("modalPlatform");
+
+const modalPlatformInput =
+    document.getElementById("modalPlatformInput");
+
+const platformUsername =
+    document.getElementById("platformUsername");
+
+
+// ===============================
+// TOAST NOTIFICATION
+// ===============================
+
+function showToast(message) {
 
     const toast = document.createElement("div");
 
@@ -28,155 +60,136 @@ function showToast(message){
 
     document.body.appendChild(toast);
 
-    setTimeout(()=>{
-
+    setTimeout(() => {
         toast.classList.add("show");
+    }, 100);
 
-    },100);
-
-    setTimeout(()=>{
+    setTimeout(() => {
 
         toast.classList.remove("show");
 
-        setTimeout(()=>{
-
+        setTimeout(() => {
             toast.remove();
+        }, 300);
 
-        },300);
-
-    },3000);
-
+    }, 3000);
 }
 
+
 // ===============================
-// Update Progress
+// UPDATE PROGRESS
 // ===============================
 
-function updateProgress(){
+function updateProgress() {
 
-    const percentage = Math.round((connectedAccounts / totalAccounts) * 20 + 80);
+    const percentage =
+        Math.round(
+            (connectedAccounts / totalAccounts) * 20 + 80
+        );
 
-    progressBar.style.width = percentage + "%";
+    if (progressBar) {
+        progressBar.style.width =
+            percentage + "%";
+    }
 
-    completionText.textContent = percentage + "% Completed";
-
+    if (completionText) {
+        completionText.textContent =
+            percentage + "% Completed";
+    }
 }
 
+
 // ===============================
-// Connect Account
+// OPEN CONNECT MODAL
 // ===============================
 
-connectButtons.forEach(button=>{
+connectButtons.forEach(button => {
 
-    button.addEventListener("click",()=>{
+    button.addEventListener("click", () => {
 
-        const card = button.closest(".account");
+        const platform =
+            button.dataset.platform;
 
-        if(card.classList.contains("connected")) return;
+        // Set platform name in modal
+        modalPlatform.textContent =
+            platform;
 
-        card.classList.add("loading");
+        // Set hidden input value
+        modalPlatformInput.value =
+            platform;
 
-        button.innerHTML = `
-            <i class="fa-solid fa-spinner"></i>
-            Connecting...
-        `;
+        // Clear previous username
+        platformUsername.value = "";
 
-        setTimeout(()=>{
+        // Open modal
+        modal.style.display = "flex";
 
-            card.classList.remove("loading");
-
-            card.classList.add("connected");
-            card.classList.add("success");
-
-            connectedAccounts++;
-
-            updateProgress();
-
-            const platform = card.querySelector("h2").textContent;
-
-            const badge = card.querySelector(".status-badge");
-
-            badge.className = "status-badge connected-badge";
-
-            badge.innerHTML = `
-                <i class="fa-solid fa-circle-check"></i>
-                Connected
-            `;
-
-            const preview = card.querySelector(".preview");
-
-            if(preview){
-
-                preview.outerHTML = `
-
-                <div class="stats">
-
-                    <div>
-
-                        <span>Score</span>
-
-                        <strong>${Math.floor(Math.random()*500)+100}</strong>
-
-                    </div>
-
-                    <div>
-
-                        <span>Badges</span>
-
-                        <strong>${Math.floor(Math.random()*20)+1}</strong>
-
-                    </div>
-
-                    <div>
-
-                        <span>Rank</span>
-
-                        <strong>#${Math.floor(Math.random()*900)+100}</strong>
-
-                    </div>
-
-                </div>
-
-                <div class="sync">
-
-                    <span>Last Sync</span>
-
-                    <strong>Just now</strong>
-
-                </div>
-
-                `;
-
-            }
-
-            button.className = "sync-btn";
-
-            button.innerHTML = `
-                <i class="fa-solid fa-rotate"></i>
-                Sync Now
-            `;
-
-            showToast(platform + " connected successfully!");
-
-            attachSync(button);
-
-        },2000);
+        // Focus username field
+        platformUsername.focus();
 
     });
 
 });
 
+
 // ===============================
-// Sync Function
+// CLOSE MODAL
 // ===============================
 
-function attachSync(button){
+closeModal.addEventListener("click", () => {
 
-    button.addEventListener("click",()=>{
+    modal.style.display = "none";
 
-        const card = button.closest(".account");
+});
 
-        const syncText = card.querySelector(".sync strong");
+
+// ===============================
+// CLOSE MODAL
+// WHEN CLICKING OUTSIDE
+// ===============================
+
+modal.addEventListener("click", (event) => {
+
+    if (event.target === modal) {
+
+        modal.style.display = "none";
+
+    }
+
+});
+
+
+// ===============================
+// CLOSE MODAL WITH ESC KEY
+// ===============================
+
+document.addEventListener("keydown", (event) => {
+
+    if (
+        event.key === "Escape" &&
+        modal.style.display === "flex"
+    ) {
+
+        modal.style.display = "none";
+
+    }
+
+});
+
+
+// ===============================
+// SYNC FUNCTION
+// ===============================
+
+function attachSync(button) {
+
+    button.addEventListener("click", () => {
+
+        const card =
+            button.closest(".account");
+
+        const syncText =
+            card.querySelector(".sync strong");
 
         button.disabled = true;
 
@@ -187,9 +200,11 @@ function attachSync(button){
 
         button.classList.add("loading");
 
-        setTimeout(()=>{
 
-            syncText.textContent = "Just now";
+        setTimeout(() => {
+
+            syncText.textContent =
+                "Just now";
 
             button.disabled = false;
 
@@ -200,24 +215,34 @@ function attachSync(button){
                 Sync Now
             `;
 
-            const platform = card.querySelector("h2").textContent;
+            const platform =
+                card.querySelector("h2").textContent;
 
-            showToast(platform + " synced successfully!");
+            showToast(
+                platform +
+                " synced successfully!"
+            );
 
-        },1500);
+        }, 1500);
 
     });
 
 }
 
-// Existing Sync Buttons
 
-syncButtons.forEach(btn=>{
+// ===============================
+// EXISTING SYNC BUTTONS
+// ===============================
 
-    attachSync(btn);
+syncButtons.forEach(button => {
+
+    attachSync(button);
 
 });
 
-// Initial Progress
+
+// ===============================
+// INITIAL PROGRESS
+// ===============================
 
 updateProgress();

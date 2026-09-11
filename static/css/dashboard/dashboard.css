@@ -923,13 +923,18 @@ body{
 
     align-items:center;
 
-    gap:35px;
+    gap:30px;
 
-    margin-bottom:45px;
+    margin-top:10px;
+    margin-bottom:35px;
 
-    padding:45px;
+    padding:30px 35px;
 
-    border-radius:28px;
+    max-width:100%;
+
+    min-height: 20px;
+
+    border-radius:24px;
 
     background:linear-gradient(
         135deg,
@@ -1000,9 +1005,9 @@ body{
 
 .hero-content h1{
 
-    font-size:2.5rem;
+    font-size:2rem;
 
-    margin-bottom:15px;
+    margin-bottom:10px;
 
     line-height:1.2;
 
@@ -1010,13 +1015,13 @@ body{
 
 .hero-content p{
 
-    max-width:650px;
+    max-width:600px;
 
     color:#D6DCF6;
 
-    line-height:1.8;
+    line-height:1.6;
 
-    font-size:15px;
+    font-size:14px;
 
 }
 

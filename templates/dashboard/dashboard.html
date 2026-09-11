@@ -264,14 +264,6 @@
 
     </div>
 
-    <button>
-
-        Continue Learning
-
-        <i class="fa-solid fa-arrow-right"></i>
-
-    </button>
-
 </section>
 
 <!-- =========================================
@@ -281,9 +273,7 @@
 <section class="stats">
 
     <!-- XP -->
-
     <div class="stat-card">
-
         <i class="fa-solid fa-star"></i>
 
         <h3>{{ user.total_xp }}</h3>
@@ -291,19 +281,14 @@
         <p>Total XP</p>
 
         <div class="trend">
-
             <i class="fa-solid fa-arrow-trend-up"></i>
-
-            +15%
-
+            Growth
         </div>
-
     </div>
 
-    <!-- Rank -->
 
+    <!-- Campus Rank -->
     <div class="stat-card">
-
         <i class="fa-solid fa-ranking-star"></i>
 
         <h3>#42</h3>
@@ -311,39 +296,14 @@
         <p>Campus Rank</p>
 
         <div class="trend">
-
             <i class="fa-solid fa-arrow-trend-up"></i>
-
-            +4%
-
+            Current
         </div>
-
     </div>
 
-    <!-- Streak -->
-
-    <div class="stat-card">
-
-        <i class="fa-solid fa-fire"></i>
-
-        <h3>{{ user.streak }}</h3>
-
-        <p>Day Streak</p>
-
-        <div class="trend">
-
-            <i class="fa-solid fa-arrow-trend-up"></i>
-
-            +2 Days
-
-        </div>
-
-    </div>
 
     <!-- Projects -->
-
     <div class="stat-card">
-
         <i class="fa-solid fa-folder-open"></i>
 
         <h3>{{ project_count }}</h3>
@@ -351,19 +311,14 @@
         <p>Projects</p>
 
         <div class="trend">
-
             <i class="fa-solid fa-arrow-trend-up"></i>
-
-            +1
-
+            Built
         </div>
-
     </div>
 
-    <!-- Problems -->
 
+    <!-- Problems Solved -->
     <div class="stat-card">
-
         <i class="fa-solid fa-code"></i>
 
         <h3>
@@ -373,33 +328,92 @@
         <p>Problems Solved</p>
 
         <div class="trend">
-
             <i class="fa-solid fa-arrow-trend-up"></i>
-
-            +24
-
+            Solved
         </div>
-
     </div>
 
-    <!-- Badges -->
 
+    <!-- Mock Interviews -->
     <div class="stat-card">
+        <i class="fa-solid fa-user-tie"></i>
 
-        <i class="fa-solid fa-award"></i>
+        <h3>0</h3>
 
-        <h3>15</h3>
-
-        <p>Badges Earned</p>
+        <p>Mock Interviews</p>
 
         <div class="trend">
+            <i class="fa-solid fa-arrow-right"></i>
+            Start
+        </div>
+    </div>
 
+
+    <!-- GD Rounds -->
+    <div class="stat-card">
+        <i class="fa-solid fa-users"></i>
+
+        <h3>0</h3>
+
+        <p>GD Rounds</p>
+
+        <div class="trend">
+            <i class="fa-solid fa-arrow-right"></i>
+            Start
+        </div>
+    </div>
+
+        <!-- Hackathons -->
+    <div class="stat-card">
+        <i class="fa-solid fa-laptop-code"></i>
+        <h3>0</h3>
+        <p>Hackathons Participated</p>
+        <div class="trend">
             <i class="fa-solid fa-arrow-trend-up"></i>
+            Start participating
+        </div>
+    </div>
 
-            +3
+        
 
+        <!-- GitHub -->
+        <div class="stat-card">
+            <i class="fa-brands fa-github"></i>
+            <h3>0</h3>
+            <p>GitHub Contributions</p>
+            <div class="trend">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+                Connect GitHub
+            </div>
         </div>
 
+    <!-- Contests -->
+    <div class="stat-card">
+        <i class="fa-solid fa-trophy"></i>
+
+        <h3>0</h3>
+
+        <p>Contests</p>
+
+        <div class="trend">
+            <i class="fa-solid fa-arrow-right"></i>
+            Participate
+        </div>
+    </div>
+
+
+    <!-- Certifications -->
+    <div class="stat-card">
+        <i class="fa-solid fa-certificate"></i>
+
+        <h3>0</h3>
+
+        <p>Certifications</p>
+
+        <div class="trend">
+            <i class="fa-solid fa-arrow-right"></i>
+            Add
+        </div>
     </div>
 
 </section>
@@ -534,101 +548,7 @@
         WEEKLY CODING ACTIVITY
 ========================================= -->
 
-<div class="card activity-card">
 
-    <div class="card-header">
-
-        <div>
-
-            <h2>Weekly Coding Activity</h2>
-
-            <p>Track your coding consistency</p>
-
-        </div>
-
-        <span class="streak">
-
-            🔥 18 Day Streak
-
-        </span>
-
-    </div>
-
-    <div class="heatmap">
-
-        <div class="day">Mon</div>
-
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-
-        <div class="day">Tue</div>
-
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-
-        <div class="day">Wed</div>
-
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-
-        <div class="day">Thu</div>
-
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-
-        <div class="day">Fri</div>
-
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-
-        <div class="day">Sat</div>
-
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-
-        <div class="day">Sun</div>
-
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-        <div class="box"></div>
-        <div class="box active"></div>
-        <div class="box active"></div>
-
-    </div>
-
-</div>
 
 <!-- =========================================
         XP PROGRESS
@@ -789,155 +709,9 @@
     </div>
 
 </div>
-<!-- =========================================
-        LEADERBOARD
-========================================= -->
 
-<div class="card leaderboard-card">
 
-    <h2>🏆 Campus Leaderboard</h2>
 
-    <div class="leader">
-
-        <img src="https://i.pravatar.cc/60?img=12" alt="Rahul">
-
-        <div>
-
-            <h4>Rahul Sharma</h4>
-
-            <span>4250 XP</span>
-
-        </div>
-
-        <div class="trend up">
-
-            🔥35
-
-        </div>
-
-    </div>
-
-    <div class="leader">
-
-        <img src="https://i.pravatar.cc/60?img=15" alt="{{ user.full_name }}">
-
-        <div>
-
-            <h4>{{ user.full_name }}</h4>
-
-            <span>{{ user.total_xp }} XP</span>
-
-        </div>
-
-        <div class="trend">
-
-            🔥{{ user.streak }}
-
-        </div>
-
-    </div>
-
-    <div class="leader">
-
-        <img src="https://i.pravatar.cc/60?img=20" alt="Aryan">
-
-        <div>
-
-            <h4>Aryan</h4>
-
-            <span>3900 XP</span>
-
-        </div>
-
-        <div class="trend">
-
-            🔥24
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =========================================
-        ACTIVITY TIMELINE
-========================================= -->
-
-<div class="card timeline">
-
-    <h2>🕒 Activity Timeline</h2>
-
-    <div class="timeline-item">
-
-        <div class="dot"></div>
-
-        <div>
-
-            <h4>Solved LeetCode 347</h4>
-
-            <span>2 hours ago</span>
-
-        </div>
-
-    </div>
-
-    <div class="timeline-item">
-
-        <div class="dot"></div>
-
-        <div>
-
-            <h4>Pushed GitHub Repository</h4>
-
-            <span>Yesterday</span>
-
-        </div>
-
-    </div>
-
-    <div class="timeline-item">
-
-        <div class="dot"></div>
-
-        <div>
-
-            <h4>Uploaded Portfolio</h4>
-
-            <span>3 Days Ago</span>
-
-        </div>
-
-    </div>
-
-    <div class="timeline-item">
-
-        <div class="dot"></div>
-
-        <div>
-
-            <h4>Completed JavaScript Module</h4>
-
-            <span>4 Days Ago</span>
-
-        </div>
-
-    </div>
-
-    <div class="timeline-item">
-
-        <div class="dot"></div>
-
-        <div>
-
-            <h4>Earned Frontend Master Badge</h4>
-
-            <span>Last Week</span>
-
-        </div>
-
-    </div>
-
-</div>
 
 <!-- =========================================
         END OF LEFT COLUMN
@@ -1022,270 +796,13 @@
 
 </div>
 
-<!-- =========================================
-        REWARD
-========================================= -->
 
-<div class="card reward-box">
 
-    <h2>🎁 Daily Reward</h2>
 
-    <h1>+150 XP ⭐</h1>
 
-    <p>
 
-        Complete today's missions to claim your reward.
 
-    </p>
 
-    <button class="claim-btn">
-
-        Claim Reward
-
-    </button>
-
-</div>
-
-<!-- =========================================
-        AI CAREER COACH
-========================================= -->
-
-<div class="card ai-card">
-
-    <div class="ai-top">
-
-        <div>
-
-            <h2>🤖 AI Career Coach</h2>
-
-            <p>Your Personal Mentor</p>
-
-        </div>
-
-        <span class="online">
-
-            ● Online
-
-        </span>
-
-    </div>
-
-    <div class="placement-score">
-
-        <h3>Placement Readiness</h3>
-
-        <div class="score-circle">
-
-            82%
-
-        </div>
-
-    </div>
-
-    <div class="ai-message">
-
-        <h3>💡 AI Insight</h3>
-
-        <p>
-
-            Great work this week!
-
-            You solved 14 coding problems and maintained an
-            18-day streak.
-
-            Focus on DSA this week to increase your placement
-            readiness to 90%.
-
-        </p>
-
-    </div>
-
-    <div class="today-plan">
-
-        <h3>Today's Focus</h3>
-
-        <div class="task complete">
-
-            ✅ Solve 2 Medium Problems
-
-        </div>
-
-        <div class="task">
-
-            🚀 Push GitHub Repository
-
-        </div>
-
-        <div class="task">
-
-            📚 Read System Design
-
-        </div>
-
-        <div class="task">
-
-            ☁ Learn AWS Basics
-
-        </div>
-
-    </div>
-
-    <button class="ask-ai">
-
-        💬 Ask AI Coach
-
-    </button>
-
-</div>
-<!-- =========================================
-        UPCOMING EVENTS
-========================================= -->
-
-<div class="card events-card">
-
-    <h2>📅 Upcoming Events</h2>
-
-    <div class="event">
-
-        <h4>💻 Weekly Coding Contest</h4>
-
-        <span>Tomorrow • 7:00 PM</span>
-
-    </div>
-
-    <div class="event">
-
-        <h4>🤖 AI Hackathon</h4>
-
-        <span>3 Days Left</span>
-
-    </div>
-
-    <div class="event">
-
-        <h4>🚀 Resume Review Session</h4>
-
-        <span>Friday • 5:00 PM</span>
-
-    </div>
-
-    <div class="event">
-
-        <h4>☁ AWS Cloud Workshop</h4>
-
-        <span>Next Monday • 6:30 PM</span>
-
-    </div>
-
-</div>
-
-<!-- =========================================
-        QUICK ACTIONS
-========================================= -->
-
-<div class="card quick-actions">
-
-    <h2>⚡ Quick Actions</h2>
-
-    <button>
-
-        <i class="fa-solid fa-folder-plus"></i>
-
-        Add New Project
-
-    </button>
-
-    <button>
-
-        <i class="fa-brands fa-github"></i>
-
-        Sync GitHub
-
-    </button>
-
-    <button>
-
-        <i class="fa-solid fa-file-arrow-up"></i>
-
-        Upload Certificate
-
-    </button>
-
-    <button>
-
-        <i class="fa-solid fa-code"></i>
-
-        Solve Daily Challenge
-
-    </button>
-
-</div>
-
-<!-- =========================================
-        LATEST ACHIEVEMENTS
-========================================= -->
-
-<div class="card achievements">
-
-    <h2>🏅 Latest Achievements</h2>
-
-    <div class="badge">
-
-        <span class="badge-icon">🏆</span>
-
-        <div>
-
-            <h4>100 Day Coding Streak</h4>
-
-            <span>Earned Today</span>
-
-        </div>
-
-    </div>
-
-    <div class="badge">
-
-        <span class="badge-icon">⭐</span>
-
-        <div>
-
-            <h4>Frontend Master</h4>
-
-            <span>Reached Level 10</span>
-
-        </div>
-
-    </div>
-
-    <div class="badge">
-
-        <span class="badge-icon">🚀</span>
-
-        <div>
-
-            <h4>Project Builder</h4>
-
-            <span>15 Projects Completed</span>
-
-        </div>
-
-    </div>
-
-    <div class="badge">
-
-        <span class="badge-icon">💡</span>
-
-        <div>
-
-            <h4>Problem Solver</h4>
-
-            <span>350+ Problems Solved</span>
-
-        </div>
-
-    </div>
-
-</div>
 <!-- =========================================
         PLACEMENT READINESS
 ========================================= -->

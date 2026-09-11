@@ -776,6 +776,9 @@ def connect_platform():
             profile_url = (
                 f"https://codeforces.com/profile/{username}"
             )
+            
+        elif platform == "GFG":
+            profile_url = f"https://www.geeksforgeeks.org/user/{username}/"
 
         # =========================================
         # CHECK EXISTING ACCOUNT
@@ -804,15 +807,14 @@ def connect_platform():
             db.session.add(new_account)
 
         db.session.commit()
+        print("ACCOUNT SAVED:", platform, username)
 
         flash(
             f"{platform} account connected successfully.",
             "success"
         )
 
-        return redirect(
-            url_for("dashboard")
-        )
+        return redirect(url_for("connect"))
 
     platform = request.args.get("platform")
 
@@ -1140,8 +1142,21 @@ def skills():
 @app.route("/connect")
 def connect():
 
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    connected_accounts = PlatformAccount.query.filter_by(
+        user_id=session["user_id"]
+    ).all()
+
+    connected_platforms = {
+        account.platform: account
+        for account in connected_accounts
+    }
+
     return render_template(
-        "onboarding/connect.html"
+        "onboarding/connect.html",
+        connected_platforms=connected_platforms
     )
 
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,67 +6,1506 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Connected Platforms | CampusForge</title>
+
+    <!-- Theme -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0B1023;
+            color: #FFFFFF;
+            min-height: 100vh;
+        }
+
+        .platform-page {
+            padding: 35px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        /* =========================================
+           PAGE HEADER
+        ========================================== */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #B8C3E6;
+            font-size: 14px;
+        }
+
+        .connect-main-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #6C63FF, #8A2BE2);
+            transition: .3s;
+        }
+
+        .connect-main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(108, 99, 255, .35);
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================== */
+
+        .platform-hero {
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+
+            padding: 35px;
+            margin-bottom: 30px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(108, 99, 255, .22),
+                    rgba(138, 43, 226, .08)
+                );
+
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .platform-hero::before {
+            content: "";
+
+            position: absolute;
+            width: 300px;
+            height: 300px;
+
+            top: -140px;
+            right: -80px;
+
+            border-radius: 50%;
+
+            background: rgba(108, 99, 255, .20);
+
+            filter: blur(70px);
+        }
+
+        .platform-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .platform-hero-content h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .platform-hero-content p {
+            color: #D6DCF6;
+            max-width: 650px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           HERO SUMMARY
+        ========================================== */
+
+        .hero-summary {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+
+            min-width: 390px;
+        }
+
+        .hero-stat {
+            padding: 18px;
+            border-radius: 16px;
+
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.08);
+
+            text-align: center;
+        }
+
+        .hero-stat i {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #8A7DFF;
+        }
+
+        .hero-stat h3 {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .hero-stat span {
+            color: #AEB8DC;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           SECTION HEADER
+        ========================================== */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-header h2 {
+            font-size: 21px;
+        }
+
+        .section-header span {
+            color: #8E99BF;
+            font-size: 12px;
+        }
+
+
+        
+        /* =========================================
+           CONNECTED PLATFORMS
+        ========================================== */
+
+        .connected-section {
+            margin-bottom: 40px;
+        }
+
+        .platform-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .platform-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 24px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+
+            transition: .35s;
+        }
+
+        .platform-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 4px;
+            height: 100%;
+
+            background: linear-gradient(
+                180deg,
+                #6C63FF,
+                #8A2BE2
+            );
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(108,99,255,.7);
+
+            box-shadow:
+                0 18px 40px rgba(0,0,0,.30),
+                0 0 25px rgba(108,99,255,.12);
+        }
+
+        .platform-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+        .platform-identity {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .platform-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: linear-gradient(
+                135deg,
+                #6C63FF,
+                #8A2BE2
+            );
+
+            font-size: 24px;
+        }
+
+        .platform-identity h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .platform-identity p {
+            color: #AEB8DC;
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           STATUS
+        ========================================== */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 12px;
+
+            border-radius: 50px;
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status.connected {
+            color: #22C55E;
+            background: rgba(34,197,94,.10);
+        }
+
+        .status.warning {
+            color: #F59E0B;
+            background: rgba(245,158,11,.10);
+        }
+
+
+        /* =========================================
+           PLATFORM STATS
+        ========================================== */
+
+        .platform-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .platform-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .platform-stat {
+            text-align: center;
+            min-width: 75px;
+        }
+
+        .platform-stat strong {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .platform-stat small {
+            color: #8994BA;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           PLATFORM ACTIONS
+        ========================================== */
+
+        .platform-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .platform-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            color: #DDE2FF;
+
+            background: rgba(255,255,255,.06);
+
+            border: 1px solid rgba(255,255,255,.08);
+
+            font-size: 12px;
+
+            transition: .25s;
+        }
+
+        .platform-action:hover {
+            background: rgba(108,99,255,.18);
+            border-color: #6C63FF;
+        }
+
+        .sync-action {
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           SYNC CENTER
+        ========================================== */
+
+        .sync-section {
+            margin-bottom: 40px;
+        }
+
+        .sync-card {
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .sync-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .sync-row:last-child {
+            border-bottom: none;
+        }
+
+        .sync-platform {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sync-platform i {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 10px;
+
+            background: rgba(108,99,255,.15);
+        }
+
+        .sync-platform strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .sync-platform small {
+            color: #8994BA;
+            font-size: 10px;
+        }
+
+        .sync-status {
+            color: #22C55E;
+            font-size: 11px;
+        }
+
+        .sync-all {
+            width: 100%;
+
+            margin-top: 20px;
+            padding: 13px;
+
+            border: none;
+            border-radius: 11px;
+
+            background: linear-gradient(
+                135deg,
+                #6C63FF,
+                #8A2BE2
+            );
+
+            color: white;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .sync-all:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(108,99,255,.3);
+        }
+
+
+        /* =========================================
+           PLATFORM COMPARISON
+        ========================================== */
+
+        .comparison-section {
+            margin-bottom: 40px;
+        }
+
+        .comparison-card {
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .comparison-item {
+            margin-bottom: 20px;
+        }
+
+        .comparison-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .comparison-top {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+        }
+
+        .comparison-top span:last-child {
+            color: #B8C3E6;
+        }
+
+        .comparison-bar {
+            height: 9px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.07);
+        }
+
+        .comparison-fill {
+            height: 100%;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                90deg,
+                #6C63FF,
+                #8A2BE2
+            );
+        }
+
+
+        /* =========================================
+           EXPLORE PLATFORMS
+        ========================================== */
+
+        .explore-section {
+            margin-bottom: 40px;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .explore-card {
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background: rgba(255,255,255,.04);
+
+            border: 1px solid rgba(255,255,255,.08);
+
+            transition: .3s;
+        }
+
+        .explore-card:hover {
+            transform: translateY(-5px);
+            border-color: #6C63FF;
+        }
+
+        .explore-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 14px;
+
+            background: rgba(108,99,255,.14);
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+        }
+
+        .explore-card h3 {
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .explore-card p {
+            color: #8994BA;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            background: rgba(108,99,255,.12);
+
+            color: #BFC5FF;
+
+            font-size: 11px;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           AI INSIGHT
+        ========================================== */
+
+        .ai-section {
+            margin-bottom: 30px;
+        }
+
+        .ai-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 28px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(108,99,255,.15),
+                    rgba(138,43,226,.08)
+                );
+
+            border: 1px solid rgba(108,99,255,.25);
+        }
+
+        .ai-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            right: -80px;
+            top: -100px;
+
+            border-radius: 50%;
+
+            background: rgba(138,43,226,.18);
+
+            filter: blur(50px);
+        }
+
+        .ai-header {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .ai-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 13px;
+
+            background: linear-gradient(
+                135deg,
+                #6C63FF,
+                #8A2BE2
+            );
+
+            font-size: 19px;
+        }
+
+        .ai-header h2 {
+            font-size: 19px;
+        }
+
+        .ai-card p {
+            position: relative;
+            z-index: 2;
+
+            color: #D1D7F4;
+
+            max-width: 850px;
+
+            line-height: 1.7;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================== */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 60px 25px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.04);
+
+            border: 1px dashed rgba(255,255,255,.12);
+        }
+
+        .empty-state i {
+            font-size: 40px;
+            color: #6C63FF;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #8994BA;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 1100px) {
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .explore-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .platform-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-summary {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .platform-page {
+                padding: 20px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .overview-grid,
+            .explore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-summary {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .platform-top,
+            .platform-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .platform-stats {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-    <h1>Connected Platforms</h1>
+<div class="platform-page">
 
-    <a href="{{ url_for('connect_platform') }}">
-        + Connect Platform
-    </a>
 
-    <hr>
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
 
-    {% if accounts %}
+    <header class="page-header">
 
-        {% for account in accounts %}
+        <div class="page-title">
 
-            <div>
+            <h1>
+                <i class="fa-solid fa-link"></i>
+                Platforms
+            </h1>
 
-                <h2>{{ account.platform }}</h2>
+            <p>
+                Manage your coding, development and professional profiles.
+            </p>
 
-                <p>
-                    Username: {{ account.username }}
-                </p>
+        </div>
 
-                {% if account.verified %}
+        <a href="{{ url_for('connect_platform') }}"
+           class="connect-main-btn">
 
-                    <p>✅ Verified</p>
+            <i class="fa-solid fa-plus"></i>
 
-                {% else %}
+            Connect Platform
 
-                    <p>⚠️ Not Verified</p>
+        </a>
 
-                    <a href="{{ url_for('verify_platform', account_id=account.id) }}">
-                        Verify
-                    </a>
-                    <a href="{{ url_for('sync_platform', account_id=account.id) }}">
-                        Sync Stats
-                    </a>
+    </header>
 
-                {% endif %}
 
-                {% if account.profile_url %}
 
-                    <a href="{{ account.profile_url }}"
-                       target="_blank">
-                        View Profile
-                    </a>
+    <!-- =========================================
+         DIGITAL FOOTPRINT HERO
+    ========================================== -->
 
-                {% endif %}
+    <section class="platform-hero">
+
+        <div class="platform-hero-content">
+
+            <h2>
+                🌐 Your Digital Footprint
+            </h2>
+
+            <p>
+                Connect your coding and professional platforms to build
+                a complete profile of your technical journey, achievements
+                and placement readiness.
+            </p>
+
+        </div>
+
+
+        
+
+    </section>
+
+
+
+    
+
+
+
+    <!-- =========================================
+         CONNECTED PLATFORMS
+    ========================================== -->
+
+    <section class="connected-section">
+
+        <div class="section-header">
+
+            <h2>
+                🔗 Connected Platforms
+            </h2>
+
+            <span>
+                {{ accounts|length }} connected
+            </span>
+
+        </div>
+
+
+        {% if accounts %}
+
+        <div class="platform-list">
+
+
+            {% for account in accounts %}
+
+            <div class="platform-card">
+
+
+                <!-- PLATFORM TOP -->
+
+                <div class="platform-top">
+
+                    <div class="platform-identity">
+
+                        <div class="platform-icon">
+
+                            {% if account.platform == "LeetCode" %}
+
+                                <i class="fa-solid fa-code"></i>
+
+                            {% elif account.platform == "Codeforces" %}
+
+                                <i class="fa-solid fa-trophy"></i>
+
+                            {% elif account.platform == "GitHub" %}
+
+                                <i class="fa-brands fa-github"></i>
+
+                            {% elif account.platform == "LinkedIn" %}
+
+                                <i class="fa-brands fa-linkedin-in"></i>
+
+                            {% elif account.platform == "GFG" %}
+
+                                <i class="fa-solid fa-laptop-code"></i>
+
+                            {% elif account.platform == "HackerRank" %}
+
+                                <i class="fa-solid fa-terminal"></i>
+
+                            {% else %}
+
+                                <i class="fa-solid fa-globe"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                {{ account.platform }}
+                            </h3>
+
+                            <p>
+                                @{{ account.username }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if account.verified %}
+
+                        <span class="status connected">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Verified
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="status warning">
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            Verification Required
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- PLATFORM STATS -->
+
+                <div class="platform-bottom">
+
+
+                    <div class="platform-stats">
+
+
+                        {% if account.platform == "LeetCode" %}
+
+                            <div class="platform-stat">
+
+                                <strong>117</strong>
+
+                                <small>Problems</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>86</strong>
+
+                                <small>Easy</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>28</strong>
+
+                                <small>Medium</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>3</strong>
+
+                                <small>Hard</small>
+
+                            </div>
+
+
+                        {% elif account.platform == "Codeforces" %}
+
+                            <div class="platform-stat">
+
+                                <strong>41</strong>
+
+                                <small>Problems</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>105</strong>
+
+                                <small>Submissions</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>52</strong>
+
+                                <small>Accepted</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>—</strong>
+
+                                <small>Rating</small>
+
+                            </div>
+
+
+                        {% else %}
+
+                            <div class="platform-stat">
+
+                                <strong>0</strong>
+
+                                <small>Problems</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>0</strong>
+
+                                <small>Contributions</small>
+
+                            </div>
+
+                            <div class="platform-stat">
+
+                                <strong>—</strong>
+
+                                <small>Rating</small>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="platform-actions">
+
+
+                        {% if account.profile_url %}
+
+                            <a href="{{ account.profile_url }}"
+                               target="_blank"
+                               class="platform-action">
+
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                View Profile
+
+                            </a>
+
+                        {% endif %}
+
+
+                        {% if not account.verified %}
+
+                            <a href="{{ url_for('verify_platform', account_id=account.id) }}"
+                               class="platform-action">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                                Verify
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <a href="{{ url_for('sync_platform', account_id=account.id) }}"
+                           class="platform-action sync-action">
+
+                            <i class="fa-solid fa-rotate"></i>
+
+                            Sync Stats
+
+                        </a>
+
+                    </div>
+
+
+                </div>
 
             </div>
 
-            <hr>
+            {% endfor %}
 
-        {% endfor %}
+        </div>
 
-    {% else %}
 
-        <p>No coding platforms connected yet.</p>
+        {% else %}
 
-    {% endif %}
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-link"></i>
+
+            <h3>No Platforms Connected</h3>
+
+            <p>
+                Connect your coding and professional profiles
+                to start building your CampusForge profile.
+            </p>
+
+            <a href="{{ url_for('connect_platform') }}"
+               class="connect-main-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Connect Your First Platform
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+
+    
+
+
+
+    
+
+
+
+    <!-- =========================================
+         EXPLORE MORE PLATFORMS
+    ========================================== -->
+
+    <section class="explore-section">
+
+        <div class="section-header">
+
+            <h2>
+                🌐 Explore More Platforms
+            </h2>
+
+            <span>
+                Expand your digital footprint
+            </span>
+
+        </div>
+
+
+        <div class="explore-grid">
+
+
+            <!-- GitHub -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-brands fa-github"></i>
+
+                </div>
+
+                <h3>GitHub</h3>
+
+                <p>
+                    Track repositories, commits and open-source activity.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- LinkedIn -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-brands fa-linkedin"></i>
+
+                </div>
+
+                <h3>LinkedIn</h3>
+
+                <p>
+                    Showcase your professional identity and network.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- HackerRank -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-solid fa-terminal"></i>
+
+                </div>
+
+                <h3>HackerRank</h3>
+
+                <p>
+                    Track coding challenges, skills and certifications.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- GeeksForGeeks -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-solid fa-laptop-code"></i>
+
+                </div>
+
+                <h3>GeeksForGeeks</h3>
+
+                <p>
+                    Track problem solving and technical practice.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- CodeChef -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-solid fa-utensils"></i>
+
+                </div>
+
+                <h3>CodeChef</h3>
+
+                <p>
+                    Track contests, ratings and competitive programming.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- Kaggle -->
+
+            <div class="explore-card">
+
+                <div class="explore-icon">
+
+                    <i class="fa-solid fa-database"></i>
+
+                </div>
+
+                <h3>Kaggle</h3>
+
+                <p>
+                    Showcase data science projects and competitions.
+                </p>
+
+                <a href="{{ url_for('connect_platform') }}"
+                   class="explore-btn">
+
+                    Connect
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         AI INSIGHT
+    ========================================== -->
+
+    <section class="ai-section">
+
+        <div class="section-header">
+
+            <h2>
+                🤖 CampusForge Insight
+            </h2>
+
+            <span>
+                AI-powered profile analysis
+            </span>
+
+        </div>
+
+
+        <div class="ai-card">
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                </div>
+
+                <h2>
+                    Your Current Insight
+                </h2>
+
+            </div>
+
+
+            <p>
+                Your coding activity is growing well. Your LeetCode
+                performance shows strong problem-solving consistency.
+                To strengthen your placement profile further, focus on
+                GitHub contributions, open-source projects and
+                hackathon participation.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
+
+<script>
+
+    const syncAllButton = document.querySelector(".sync-all");
+
+    if (syncAllButton) {
+
+        syncAllButton.addEventListener("click", function () {
+
+            syncAllButton.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Syncing Platforms...';
+
+            syncAllButton.disabled = true;
+
+            setTimeout(() => {
+
+                syncAllButton.innerHTML =
+                    '<i class="fa-solid fa-circle-check"></i> All Platforms Synced';
+
+                setTimeout(() => {
+
+                    syncAllButton.innerHTML =
+                        '<i class="fa-solid fa-arrows-rotate"></i> Sync All Platforms';
+
+                    syncAllButton.disabled = false;
+
+                }, 2000);
+
+            }, 1500);
+
+        });
+
+    }
+
+</script>
+
 
 </body>
 

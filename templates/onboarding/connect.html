@@ -81,302 +81,349 @@
 
                 <!-- GitHub -->
 
-                <div class="account connected">
+                {% set github = connected_platforms.get("GitHub") %}
 
-                    <div class="status-badge connected-badge">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Connected
+                <div class="account {% if github %}connected{% endif %}">
+
+                    <div class="status-badge {% if github %}connected-badge{% endif %}">
+                        {% if github %}
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon github">
-
                         <i class="fab fa-github"></i>
-
                     </div>
 
                     <h2>GitHub</h2>
 
-                    <p>
-                        Repositories • Contributions • Projects
-                    </p>
+                    {% if github %}
+                        <p>
+                            @{{ github.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Repositories • Contributions • Projects
+                        </p>
+                    {% endif %}
 
-                    <div class="stats">
-
-                        <div>
-
-                            <span>Repositories</span>
-
-                            <strong>28</strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>Stars</span>
-
-                            <strong>145</strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>Followers</span>
-
-                            <strong>81</strong>
-
-                        </div>
-
+                    <div class="preview">
+                        <div>✔ Repositories</div>
+                        <div>✔ Contributions</div>
+                        <div>✔ Projects</div>
                     </div>
 
-                    <div class="sync">
+                    {% if github %}
 
-                        <span>Last Sync</span>
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
 
-                        <strong>2 min ago</strong>
+                    {% else %}
 
-                    </div>
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="GitHub"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                        </button>
 
-                    <button class="sync-btn">
-
-                        <i class="fa-solid fa-rotate"></i>
-
-                        Sync Now
-
-                    </button>
+                    {% endif %}
 
                 </div>
 
                 <!-- LeetCode -->
 
-                <div class="account">
+                {% set leetcode = connected_platforms.get("LeetCode") %}
+
+                <div class="account {% if leetcode %}connected{% endif %}">
 
                     <div class="status-badge">
-
-                        Not Connected
-
+                        {% if leetcode %}
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon leetcode">
-
                         <i class="fa-solid fa-code"></i>
-
                     </div>
 
                     <h2>LeetCode</h2>
 
-                    <p>
-                        Problems • Contest Rating • Badges
-                    </p>
+                    {% if leetcode %}
+                        <p>
+                            @{{ leetcode.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Problems • Contest Rating • Badges
+                        </p>
+                    {% endif %}
 
                     <div class="preview">
-
                         <div>✔ Problems Solved</div>
-
                         <div>✔ Contest Rating</div>
-
                         <div>✔ Badges</div>
-
                     </div>
 
-                    <a href="{{ url_for('connect_platform') }}?platform=LeetCode"
-                        class="connect-btn">
+                    {% if leetcode %}
+
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
+
+                    {% else %}
+
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="LeetCode"
+                        >
                             <i class="fa-solid fa-link"></i>
                             Connect
-                    </a>
+                        </button>
+
+                    {% endif %}
 
                 </div>
-
                 <!-- Codeforces -->
 
-                <div class="account">
+                {% set codeforces = connected_platforms.get("Codeforces") %}
+
+                <div class="account {% if codeforces %}connected{% endif %}">
 
                     <div class="status-badge">
-
-                        Not Connected
-
+                        {% if codeforces %}
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon codeforces">
-
                         <i class="fa-solid fa-trophy"></i>
-
                     </div>
 
                     <h2>Codeforces</h2>
 
-                    <p>
-                        Rating • Contests • Rank
-                    </p>
+                    {% if codeforces %}
+                        <p>
+                            @{{ codeforces.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Rating • Contests • Rank
+                        </p>
+                    {% endif %}
 
                     <div class="preview">
-
                         <div>✔ Rating</div>
-
                         <div>✔ Contest History</div>
-
                         <div>✔ Global Rank</div>
-
                     </div>
 
-                    <a href="{{ url_for('connect_platform') }}?platform=Codeforces"
-                    class="connect-btn">
-                        <i class="fa-solid fa-link"></i>
-                        Connect
-                    </a>
+                    {% if codeforces %}
+
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
+
+                    {% else %}
+
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="Codeforces"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                        </button>
+
+                    {% endif %}
 
                 </div>
 
                 <!-- LinkedIn -->
 
-                <div class="account connected">
+                {% set linkedin = connected_platforms.get("LinkedIn") %}
 
-                    <div class="status-badge connected-badge">
+                <div class="account {% if linkedin %}connected{% endif %}">
 
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        Connected
-
+                    <div class="status-badge {% if linkedin %}connected-badge{% endif %}">
+                        {% if linkedin %}
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon linkedin">
-
                         <i class="fab fa-linkedin"></i>
-
                     </div>
 
                     <h2>LinkedIn</h2>
 
-                    <p>
-                        Experience • Certificates • Projects
-                    </p>
+                    {% if linkedin %}
+                        <p>
+                            @{{ linkedin.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Experience • Certificates • Projects
+                        </p>
+                    {% endif %}
 
-                    <div class="stats">
-
-                        <div>
-
-                            <span>Connections</span>
-
-                            <strong>520</strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>Certificates</span>
-
-                            <strong>12</strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>Posts</span>
-
-                            <strong>45</strong>
-
-                        </div>
-
+                    <div class="preview">
+                        <div>✔ Experience</div>
+                        <div>✔ Certificates</div>
+                        <div>✔ Projects</div>
                     </div>
 
-                    <div class="sync">
+                    {% if linkedin %}
 
-                        <span>Last Sync</span>
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
 
-                        <strong>10 min ago</strong>
+                    {% else %}
 
-                    </div>
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="LinkedIn"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                        </button>
 
-                    <button class="sync-btn">
-
-                        <i class="fa-solid fa-rotate"></i>
-
-                        Sync Now
-
-                    </button>
+                    {% endif %}
 
                 </div>
-
                 <!-- GeeksforGeeks -->
 
-                <div class="account">
+                {% set gfg = connected_platforms.get("GFG") %}
+
+                <div class="account {% if gfg %}connected{% endif %}">
 
                     <div class="status-badge">
-
-                        Not Connected
-
+                        {% if gfg %}
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon gfg">
-
                         <i class="fa-solid fa-book-open"></i>
-
                     </div>
 
                     <h2>GeeksforGeeks</h2>
 
-                    <p>
-                        Practice • Score • Badges
-                    </p>
+                    {% if gfg %}
+                        <p>
+                            @{{ gfg.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Practice • Score • Badges
+                        </p>
+                    {% endif %}
 
                     <div class="preview">
-
                         <div>✔ Practice Score</div>
-
                         <div>✔ Badges</div>
-
                         <div>✔ Articles</div>
-
                     </div>
 
-                    <button class="connect-btn">
+                    {% if gfg %}
 
-                        <i class="fa-solid fa-link"></i>
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
 
-                        Connect
+                    {% else %}
 
-                    </button>
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="GFG"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                        </button>
+
+                    {% endif %}
 
                 </div>
 
                 <!-- HackerRank -->
 
-                <div class="account">
+                {% set hackerrank = connected_platforms.get("HackerRank") %}
+
+                <div class="account {% if hackerrank %}connected{% endif %}">
 
                     <div class="status-badge">
-
-                        Not Connected
-
+                        {% if hackerrank %}
+                            Connected
+                        {% else %}
+                            Not Connected
+                        {% endif %}
                     </div>
 
                     <div class="icon hackerrank">
-
                         <i class="fab fa-hackerrank"></i>
-
                     </div>
 
                     <h2>HackerRank</h2>
 
-                    <p>
-                        Skills • Certifications • Challenges
-                    </p>
+                    {% if hackerrank %}
+                        <p>
+                            @{{ hackerrank.username }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Skills • Certifications • Challenges
+                        </p>
+                    {% endif %}
 
                     <div class="preview">
-
                         <div>✔ Skill Badges</div>
-
                         <div>✔ Challenges</div>
-
                         <div>✔ Certifications</div>
-
                     </div>
 
-                    <button class="connect-btn">
+                    {% if hackerrank %}
 
-                        <i class="fa-solid fa-link"></i>
+                        <button type="button" class="connect-btn" disabled>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Connected
+                        </button>
 
-                        Connect
+                    {% else %}
 
-                    </button>
+                        <button
+                            type="button"
+                            class="connect-btn"
+                            data-platform="HackerRank"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Connect
+                        </button>
+
+                    {% endif %}
 
                 </div>
 
@@ -402,13 +449,59 @@
 
                     </a>
 
-                    <button class="continue">
-
+                    <a href="{{ url_for('complete') }}" class="continue">
                         Continue
-
                         <i class="fa-solid fa-arrow-right"></i>
+                    </a>
 
+                </div>
+
+            </div>
+            <!-- Connect Modal -->
+
+            <div class="modal-overlay" id="connectModal">
+
+                <div class="modal">
+
+                    <button type="button" class="modal-close" id="closeModal">
+                        &times;
                     </button>
+
+                    <div class="modal-icon">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+
+                    <h2>Connect <span id="modalPlatform">Platform</span></h2>
+
+                    <p>
+                        Enter your platform username to connect your account.
+                    </p>
+
+                    <form method="POST" action="{{ url_for('connect_platform') }}">
+
+                        <input
+                            type="hidden"
+                            name="platform"
+                            id="modalPlatformInput"
+                        >
+
+                        <label for="platformUsername">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="platformUsername"
+                            name="username"
+                            placeholder="Enter username"
+                            required
+                        >
+
+                        <button type="submit" class="modal-connect">
+                            Connect Account
+                        </button>
+
+                    </form>
 
                 </div>
 
