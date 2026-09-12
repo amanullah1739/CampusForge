@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | CampusForge</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at top left, #25204d, transparent 40%),
+                linear-gradient(135deg, #0b1020, #111827);
+        }
+
+        .profile-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #aeb7cc;
+            font-size: 14px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+        }
+
+        .profile-identity {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 34px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #6c63ff, #9c4dff);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.35);
+        }
+
+        .profile-info h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .profile-info p {
+            color: #b8c0d4;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .profile-meta span {
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #d9d6ff;
+            background: rgba(108, 99, 255, 0.18);
+        }
+
+        .edit-btn {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6c63ff, #8b5cf6);
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-card {
+            padding: 28px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(18px);
+        }
+
+        .section-card h3 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .information-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .information-item {
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .information-item small {
+            display: block;
+            margin-bottom: 8px;
+            color: #9da8c0;
+            font-size: 12px;
+        }
+
+        .information-item strong {
+            font-size: 15px;
+            word-break: break-word;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px;
+            }
+
+            .profile-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .profile-identity {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .information-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-info h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="profile-container">
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h1>My Profile</h1>
+            <p>Your professional identity on CampusForge.</p>
+        </div>
+
+        <!-- PROFILE HEADER -->
+        <section class="profile-header">
+
+            <div class="profile-identity">
+
+                <div class="profile-avatar">
+                    {{ user.full_name[0] | upper }}
+                </div>
+
+                <div class="profile-info">
+
+                    <h2>{{ user.full_name }}</h2>
+
+                    <p>
+                        {{ user.branch }} • {{ user.year }}
+                    </p>
+
+                    {% if user.college %}
+                        <p>{{ user.college.name }}</p>
+                    {% endif %}
+
+                    <div class="profile-meta">
+                        <span>Roll No: {{ user.roll_number }}</span>
+                        <span>{{ user.role | title }}</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="edit-btn" type="button">
+                Edit Profile
+            </button>
+
+        </section>
+
+        <!-- BASIC INFORMATION -->
+        <section class="section-card">
+
+            <h3>Basic Information</h3>
+
+            <div class="information-grid">
+
+                <div class="information-item">
+                    <small>Full Name</small>
+                    <strong>{{ user.full_name }}</strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Email Address</small>
+                    <strong>{{ user.email }}</strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Roll Number</small>
+                    <strong>{{ user.roll_number }}</strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Branch</small>
+                    <strong>{{ user.branch }}</strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Year</small>
+                    <strong>{{ user.year }}</strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Section</small>
+                    <strong>
+                        {{ user.section or "Not added" }}
+                    </strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Phone Number</small>
+                    <strong>
+                        {{ user.phone_number or "Not added" }}
+                    </strong>
+                </div>
+
+                <div class="information-item">
+                    <small>Account Role</small>
+                    <strong>{{ user.role | title }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

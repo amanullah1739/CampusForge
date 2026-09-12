@@ -660,6 +660,50 @@ def dashboard():
 
 
 # =========================================================
+# profile
+# =========================================================
+
+@app.route("/profile")
+def profile():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user = User.query.get(session["user_id"])
+
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
+    accounts = PlatformAccount.query.filter_by(
+        user_id=user.id
+    ).all()
+
+    profile_stats = []
+
+    for account in accounts:
+
+        stats = PlatformStats.query.filter_by(
+            platform_account_id=account.id
+        ).first()
+
+        profile_stats.append({
+            "account": account,
+            "stats": stats
+        })
+
+    projects = Project.query.filter_by(
+        user_id=user.id
+    ).all()
+
+    return render_template(
+        "profile/profile.html",
+        user=user,
+        profile_stats=profile_stats,
+        projects=projects
+    )
+
+# =========================================================
 # PROJECTS
 # =========================================================
 
@@ -719,20 +763,40 @@ def add_project():
 def platforms():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     accounts = PlatformAccount.query.filter_by(
         user_id=session["user_id"]
     ).all()
 
+    total_problems = 0
+    total_submissions = 0
+    total_accepted = 0
+
+    platform_stats = {}
+
+    for account in accounts:
+
+        stats = PlatformStats.query.filter_by(
+            platform_account_id=account.id
+        ).first()
+
+        if stats:
+
+            total_problems += stats.unique_problems_solved or 0
+            total_submissions += stats.total_submissions or 0
+            total_accepted += stats.accepted_submissions or 0
+
+            platform_stats[account.id] = stats
+            
     return render_template(
         "platforms/accounts.html",
-        accounts=accounts
+        accounts=accounts,
+        platform_stats=platform_stats,
+        total_problems=total_problems,
+        total_submissions=total_submissions,
+        total_accepted=total_accepted
     )
-
 
 # -------------------------
 # CONNECT PLATFORM

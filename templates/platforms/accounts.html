@@ -499,6 +499,19 @@
             transition: .3s;
         }
 
+        .last-synced {
+            margin: 12px 0;
+            font-size: 13px;
+            color: #aab0c0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .last-synced i {
+            color: #6c63ff;
+        }
+
         .sync-all:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(108,99,255,.3);
@@ -1021,100 +1034,88 @@
                     <div class="platform-stats">
 
 
-                        {% if account.platform == "LeetCode" %}
+                        {% set stats = platform_stats.get(account.id) %}
 
-                            <div class="platform-stat">
+                        {% if stats %}
 
-                                <strong>117</strong>
+                            {% if account.platform == "LeetCode" %}
 
-                                <small>Problems</small>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.unique_problems_solved or 0 }}</strong>
+                                    <small>Problems</small>
+                                </div>
 
-                            </div>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.easy_problems or 0 }}</strong>
+                                    <small>Easy</small>
+                                </div>
 
-                            <div class="platform-stat">
+                                <div class="platform-stat">
+                                    <strong>{{ stats.medium_problems or 0 }}</strong>
+                                    <small>Medium</small>
+                                </div>
 
-                                <strong>86</strong>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.hard_problems or 0 }}</strong>
+                                    <small>Hard</small>
+                                </div>
 
-                                <small>Easy</small>
+                            {% elif account.platform == "Codeforces" %}
 
-                            </div>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.unique_problems_solved or 0 }}</strong>
+                                    <small>Problems</small>
+                                </div>
 
-                            <div class="platform-stat">
+                                <div class="platform-stat">
+                                    <strong>{{ stats.total_submissions or 0 }}</strong>
+                                    <small>Submissions</small>
+                                </div>
 
-                                <strong>28</strong>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.accepted_submissions or 0 }}</strong>
+                                    <small>Accepted</small>
+                                </div>
 
-                                <small>Medium</small>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.rating or "—" }}</strong>
+                                    <small>Rating</small>
+                                </div>
 
-                            </div>
+                            {% else %}
 
-                            <div class="platform-stat">
+                                <div class="platform-stat">
+                                    <strong>{{ stats.unique_problems_solved or 0 }}</strong>
+                                    <small>Problems</small>
+                                </div>
 
-                                <strong>3</strong>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.total_submissions or 0 }}</strong>
+                                    <small>Submissions</small>
+                                </div>
 
-                                <small>Hard</small>
+                                <div class="platform-stat">
+                                    <strong>{{ stats.rating or "—" }}</strong>
+                                    <small>Rating</small>
+                                </div>
 
-                            </div>
-
-
-                        {% elif account.platform == "Codeforces" %}
-
-                            <div class="platform-stat">
-
-                                <strong>41</strong>
-
-                                <small>Problems</small>
-
-                            </div>
-
-                            <div class="platform-stat">
-
-                                <strong>105</strong>
-
-                                <small>Submissions</small>
-
-                            </div>
-
-                            <div class="platform-stat">
-
-                                <strong>52</strong>
-
-                                <small>Accepted</small>
-
-                            </div>
-
-                            <div class="platform-stat">
-
-                                <strong>—</strong>
-
-                                <small>Rating</small>
-
-                            </div>
-
+                            {% endif %}
 
                         {% else %}
 
                             <div class="platform-stat">
-
                                 <strong>0</strong>
-
                                 <small>Problems</small>
-
                             </div>
 
-                            <div class="platform-stat">
-
-                                <strong>0</strong>
-
-                                <small>Contributions</small>
-
-                            </div>
-
-                            <div class="platform-stat">
-
-                                <strong>—</strong>
-
-                                <small>Rating</small>
-
+                           <div class="platform-stat">
+                                {% if stats.last_synced %}
+                                    <strong>Synced</strong>
+                                    <small>Status</small>
+                                {% else %}
+                                    <strong>Not Synced</strong>
+                                    <small>Status</small>
+                                {% endif %}
                             </div>
 
                         {% endif %}
@@ -1123,6 +1124,26 @@
                     </div>
 
 
+                    <!-- LAST SYNCED -->
+
+                    {% set stats = platform_stats.get(account.id) %}
+
+                    <div class="last-synced">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        {% if stats and stats.last_synced %}
+
+                            Last synced:
+                            {{ stats.last_synced.strftime("%d %b %Y, %I:%M %p") }}
+
+                        {% else %}
+
+                            Not synced yet
+
+                        {% endif %}
+
+                    </div>
 
                     <!-- ACTIONS -->
 
