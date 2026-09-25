@@ -38,6 +38,12 @@ from utils.decorators import admin_required
 from database.models.college import College
 from database.models.user_skill import UserSkill
 
+from database.services.platforms.github_sync import (
+    sync_github_account
+)
+from database.services.platforms.github import (
+    validate_github_username
+)
 # =========================================================
 # CREATE FLASK APPLICATION
 # =========================================================
@@ -553,7 +559,94 @@ def admin_students():
         student_project_counts=student_project_counts,
         student_coding_stats=student_coding_stats
     )
+
+@app.route("/projects")
+def projects():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    projects = Project.query.filter_by(
+        user_id=session["user_id"]
+    ).order_by(Project.created_at.desc()).all()
+
+    return render_template(
+        "projects/projects.html",
+        projects=projects
+    )
+
+# -------------------------
+# EDIT PROJECT
+# -------------------------
+
+@app.route("/projects/edit/<int:project_id>", methods=["GET", "POST"])
+def edit_project(project_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    project = Project.query.filter_by(
+        id=project_id,
+        user_id=session["user_id"]
+    ).first_or_404()
+
+    if request.method == "POST":
+
+        project.title = request.form.get("title")
+        project.description = request.form.get("description")
+        project.github_url = request.form.get("github_url")
+        project.live_url = request.form.get("live_url")
+        project.tech_stack = request.form.get("tech_stack")
+        project.status = request.form.get("status")
+
+        db.session.commit()
+
+        return redirect(url_for("projects"))
+
+    return render_template(
+        "projects/edit_project.html",
+        project=project
+    )
+
+
+# -------------------------
+# DELETE PROJECT
+# -------------------------
+
+@app.route("/projects/delete/<int:project_id>", methods=["POST"])
+def delete_project(project_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    project = Project.query.filter_by(
+        id=project_id,
+        user_id=session["user_id"]
+    ).first_or_404()
+
+    db.session.delete(project)
+    db.session.commit()
+
+    return redirect(url_for("projects"))
+
+
+@app.route("/projects/<int:project_id>")
+def project_details(project_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    project = Project.query.filter_by(
+        id=project_id,
+        user_id=session["user_id"]
+    ).first_or_404()
+
+    return render_template(
+        "projects/project_details.html",
+        project=project
+    )
     
+
 @app.route("/admin/leaderboard")
 @admin_required
 def admin_leaderboard():
@@ -842,7 +935,38 @@ def connect_platform():
             )
             
         elif platform == "GFG":
-            profile_url = f"https://www.geeksforgeeks.org/user/{username}/"
+            profile_url = (
+                f"https://www.geeksforgeeks.org/user/{username}/"
+            )
+            
+        elif platform == "GitHub":
+            profile_url = (
+                f"https://github.com/{username}"
+            )
+            
+        # =========================================
+        # GITHUB VALIDATION
+        # =========================================
+
+        if platform == "GitHub":
+
+            github_user = validate_github_username(
+                username
+            )
+
+            if not github_user:
+
+                flash(
+                    "GitHub username not found.",
+                    "error"
+                )
+
+                return redirect(
+                    url_for(
+                        "connect_platform",
+                        platform="GitHub"
+                    )
+                )
 
         # =========================================
         # CHECK EXISTING ACCOUNT
@@ -1024,6 +1148,35 @@ def sync_platform(account_id):
         return redirect(
             url_for("dashboard")
         )
+        
+        if account.platform == "GitHub":
+
+            try:
+
+                sync_github_account(
+                    account
+                )
+
+                flash(
+                    "GitHub stats synced successfully.",
+                    "success"
+                )
+
+            except Exception as e:
+
+                print(
+                    "GitHub sync error:",
+                    e
+                )
+
+                flash(
+                    "Unable to sync GitHub stats. Please try again.",
+                    "error"
+                )
+
+            return redirect(
+                url_for("platforms")
+            )
 
     return redirect(
         url_for("dashboard")

@@ -19,21 +19,57 @@
     <form method="POST" action="{{ url_for('connect_platform') }}">
 
         <div>
-            <label>Platform</label>
+            {% if platform %}
 
-            <select name="platform" required>
-                <option value="">Select Platform</option>
+                <input
+                    type="hidden"
+                    name="platform"
+                    value="{{ platform }}"
+                >
 
-                <option value="LeetCode"
-                    {% if platform == "LeetCode" %}selected{% endif %}>
-                    LeetCode
-                </option>
+                <div class="selected-platform">
 
-                <option value="Codeforces"
-                    {% if platform == "Codeforces" %}selected{% endif %}>
-                    Codeforces
-                </option>
-            </select>
+                    <i class="fa-brands
+                        {% if platform == 'GitHub' %}
+                            fa-github
+                        {% elif platform == 'LeetCode' %}
+                            fa-code
+                        {% elif platform == 'Codeforces' %}
+                            fa-code
+                        {% endif %}
+                    "></i>
+
+                    <span>
+                        Connecting {{ platform }}
+                    </span>
+
+                </div>
+
+            {% else %}
+
+                <label>Platform</label>
+
+                <select name="platform" required>
+
+                    <option value="">
+                        Select Platform
+                    </option>
+
+                    <option value="LeetCode">
+                        LeetCode
+                    </option>
+
+                    <option value="Codeforces">
+                        Codeforces
+                    </option>
+
+                    <option value="GitHub">
+                        GitHub
+                    </option>
+
+                </select>
+
+            {% endif %}
         </div>
 
         <div>

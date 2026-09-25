@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Projects | CampusForge</title>
+
+    <!-- Theme -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <!-- Projects CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/projects/projects.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="projects-page">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="projects-header">
+
+        <div>
+            <span class="page-label">
+                <i class="fa-solid fa-folder-open"></i>
+                MY WORK
+            </span>
+
+            <h1>My Projects</h1>
+
+            <p>
+                Build. Ship. Showcase.
+                Keep track of everything you've created.
+            </p>
+        </div>
+
+        <a href="{{ url_for('add_project') }}"
+           class="add-project-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Project
+
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         PROJECT COUNT
+    ========================================== -->
+
+    <!-- =========================================
+     PROJECT SUMMARY
+========================================= -->
+
+<section class="project-summary">
+
+    <!-- TOTAL PROJECTS -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <div>
+            <strong>{{ projects|length }}</strong>
+            <span>Total Projects</span>
+        </div>
+
+    </div>
+
+
+    <!-- COMPLETED PROJECTS -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div>
+
+            <strong>
+                {{ projects
+                   |selectattr("status", "equalto", "Completed")
+                   |list
+                   |length
+                }}
+            </strong>
+
+            <span>Completed</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- IN PROGRESS -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            <i class="fa-solid fa-spinner"></i>
+        </div>
+
+        <div>
+
+            <strong>
+                {{ projects
+                   |selectattr("status", "equalto", "In Progress")
+                   |list
+                   |length
+                }}
+            </strong>
+
+            <span>In Progress</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLANNED -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            <i class="fa-regular fa-clock"></i>
+        </div>
+
+        <div>
+
+            <strong>
+                {{ projects
+                   |selectattr("status", "equalto", "Planned")
+                   |list
+                   |length
+                }}
+            </strong>
+
+            <span>Planned</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- =========================================
+         PROJECTS
+    ========================================== -->
+
+    {% if projects %}
+
+        <section class="projects-grid">
+
+            {% for project in projects %}
+
+                <article class="project-card">
+
+                    <!-- CARD TOP -->
+                    <div class="project-top">
+
+                        <div class="project-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+
+                        <span class="project-status
+                            {% if project.status == 'Completed' %}
+                                completed
+                            {% elif project.status == 'In Progress' %}
+                                progress
+                            {% else %}
+                                planned
+                            {% endif %}">
+
+                            {% if project.status == "Completed" %}
+
+                                <span class="status-dot"></span>
+                                Completed
+
+                            {% elif project.status == "In Progress" %}
+
+                                <span class="status-dot"></span>
+                                In Progress
+
+                            {% else %}
+
+                                <span class="status-dot"></span>
+                                Planned
+
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- PROJECT TITLE -->
+
+                    <h2>
+                        {{ project.title }}
+                    </h2>
+
+
+                    <!-- PROJECT DESCRIPTION -->
+
+                    <p class="project-description">
+
+                        {% if project.description %}
+
+                            {{ project.description }}
+
+                        {% else %}
+
+                            No description added yet.
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <!-- TECH STACK -->
+
+                    {% if project.tech_stack %}
+
+                        <div class="tech-stack">
+
+                            {% for tech in project.tech_stack.split(',') %}
+
+                                <span>
+                                    {{ tech.strip() }}
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- PROJECT FOOTER -->
+
+                    <div class="project-footer">
+
+                        <!-- DATE -->
+
+                        <div class="project-date">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            {{ project.created_at.strftime("%d %b %Y") }}
+
+                        </div>
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="project-actions">
+
+                            <!-- GITHUB -->
+
+                            {% if project.github_url %}
+
+                                <a href="{{ project.github_url }}"
+                                target="_blank"
+                                class="project-action github-action"
+                                title="View GitHub">
+
+                                    <i class="fa-brands fa-github"></i>
+
+                                    <span>GitHub</span>
+
+                                </a>
+
+                            {% endif %}
+
+
+                            <!-- LIVE PROJECT -->
+
+                            {% if project.live_url %}
+
+                                <a href="{{ project.live_url }}"
+                                target="_blank"
+                                class="project-action live-action"
+                                title="View Live Project">
+
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                    <span>Live</span>
+
+                                </a>
+
+                            {% endif %}
+
+
+                            <!-- EDIT -->
+
+                            <a href="{{ url_for('edit_project', project_id=project.id) }}"
+                            class="project-action edit-action"
+                            title="Edit Project">
+
+                                <i class="fa-solid fa-pen"></i>
+
+                            </a>
+
+                            <a href="{{ url_for('project_details', project_id=project.id) }}"
+                                title="View Project"
+                                class="view-project-btn">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                            </a>
+
+
+                            <!-- DELETE -->
+
+                            <form method="POST"
+                                action="{{ url_for('delete_project', project_id=project.id) }}"
+                                onsubmit="return confirm('Are you sure you want to delete this project?');">
+
+                                <button type="submit"
+                                        class="project-action delete-action"
+                                        title="Delete Project">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+        </article>
+
+            {% endfor %}
+
+        </section>
+
+    {% else %}
+
+        <!-- =====================================
+             EMPTY STATE
+        ====================================== -->
+
+        <section class="empty-projects">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+            </div>
+
+            <h2>No Projects Yet</h2>
+
+            <p>
+                You haven't added any projects yet.
+                Start showcasing your work today.
+            </p>
+
+            <a href="{{ url_for('add_project') }}"
+               class="add-project-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Your First Project
+
+            </a>
+
+        </section>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

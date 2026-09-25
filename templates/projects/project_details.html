@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ project.title }} | CampusForge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/projects/project_details.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="project-details-page">
+
+    <!-- BACK -->
+    <a href="{{ url_for('projects') }}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Projects
+    </a>
+
+
+    <!-- HEADER -->
+    <section class="project-details-header">
+
+        <div class="project-title-section">
+
+            <div class="project-main-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+
+            <div>
+
+                <span class="page-label">
+                    <i class="fa-solid fa-folder-open"></i>
+                    PROJECT DETAILS
+                </span>
+
+                <h1>{{ project.title }}</h1>
+
+                <div class="project-meta">
+
+                    <span>
+                        <i class="fa-regular fa-calendar"></i>
+                        {{ project.created_at.strftime("%d %b %Y") }}
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-circle"></i>
+                        {{ project.status }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+        <div class="project-header-actions">
+
+            <a href="{{ url_for('edit_project', project_id=project.id) }}"
+               class="edit-btn">
+
+                <i class="fa-solid fa-pen"></i>
+                Edit
+
+            </a>
+
+            <a href="{{ url_for('delete_project', project_id=project.id) }}"
+               class="delete-btn"
+               onclick="return confirm('Are you sure you want to delete this project?');">
+
+                <i class="fa-solid fa-trash"></i>
+                Delete
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN CONTENT -->
+    <section class="project-details-grid">
+
+
+        <!-- LEFT -->
+        <div class="project-main-content">
+
+
+            <!-- DESCRIPTION -->
+            <div class="details-card">
+
+                <div class="card-heading">
+
+                    <i class="fa-solid fa-align-left"></i>
+
+                    <h2>About This Project</h2>
+
+                </div>
+
+                <p class="project-description">
+
+                    {% if project.description %}
+
+                        {{ project.description }}
+
+                    {% else %}
+
+                        No description added for this project.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <!-- TECH STACK -->
+            <div class="details-card">
+
+                <div class="card-heading">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h2>Technology Stack</h2>
+
+                </div>
+
+
+                {% if project.tech_stack %}
+
+                    <div class="tech-stack">
+
+                        {% for tech in project.tech_stack.split(',') %}
+
+                            <span>
+                                {{ tech.strip() }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <p class="empty-text">
+                        No technologies added yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <aside class="project-sidebar">
+
+
+            <!-- STATUS -->
+            <div class="details-card">
+
+                <div class="card-heading">
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                    <h2>Status</h2>
+
+                </div>
+
+                <div class="status-display">
+
+                    {% if project.status == "Completed" %}
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    {% elif project.status == "In Progress" %}
+
+                        <i class="fa-solid fa-spinner"></i>
+
+                    {% else %}
+
+                        <i class="fa-regular fa-clock"></i>
+
+                    {% endif %}
+
+                    <span>{{ project.status }}</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT LINKS -->
+            <div class="details-card">
+
+                <div class="card-heading">
+
+                    <i class="fa-solid fa-link"></i>
+
+                    <h2>Project Links</h2>
+
+                </div>
+
+
+                <div class="project-links">
+
+
+                    {% if project.github_url %}
+
+                        <a href="{{ project.github_url }}"
+                           target="_blank"
+                           class="project-link">
+
+                            <i class="fa-brands fa-github"></i>
+
+                            <div>
+                                <strong>GitHub Repository</strong>
+                                <small>View source code</small>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    {% if project.live_url %}
+
+                        <a href="{{ project.live_url }}"
+                           target="_blank"
+                           class="project-link">
+
+                            <i class="fa-solid fa-globe"></i>
+
+                            <div>
+                                <strong>Live Project</strong>
+                                <small>Open deployed project</small>
+                            </div>
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    {% if not project.github_url and not project.live_url %}
+
+                        <p class="empty-text">
+                            No project links added.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT INFO -->
+            <div class="details-card">
+
+                <div class="card-heading">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <h2>Project Info</h2>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>Project ID</span>
+
+                    <strong>#{{ project.id }}</strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>Created</span>
+
+                    <strong>
+                        {{ project.created_at.strftime("%d %b %Y") }}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <span>Status</span>
+
+                    <strong>
+                        {{ project.status }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </aside>
+
+    </section>
+
+</div>
+
+</body>
+</html>

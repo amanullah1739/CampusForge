@@ -1,79 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Add Project | CampusForge</title>
+
+    <!-- Theme -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <!-- Project CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/projects/add_project.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
 
-    <h1>Add Your Project</h1>
+<div class="project-page">
 
-    
-    <form method="POST" action="{{ url_for('add_project') }}">
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
 
-        <div>
-            <label>Project Title</label>
-            <input
-                type="text"
-                name="title"
-                placeholder="Enter project title"
-                required
-            >
+    <header class="project-header">
+
+        <div class="header-left">
+
+            <a href="{{ url_for('dashboard') }}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <div>
+                <h1>
+                    <i class="fa-solid fa-folder-plus"></i>
+                    Add Project
+                </h1>
+
+                <p>
+                    Showcase your work and build your developer profile.
+                </p>
+            </div>
+
         </div>
 
-        <div>
-            <label>Description</label>
-            <textarea
-                name="description"
-                placeholder="Describe your project"
-            ></textarea>
+    </header>
+
+
+    <!-- =========================================
+         MAIN FORM
+    ========================================== -->
+
+    <main class="project-container">
+
+        <div class="project-card">
+
+            <!-- Card Header -->
+
+            <div class="card-header">
+
+                <div class="header-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <div>
+                    <h2>Project Details</h2>
+
+                    <p>
+                        Add information about your project.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FORM
+            ====================================== -->
+
+            <form method="POST"
+                  action="{{ url_for('add_project') }}"
+                  class="project-form">
+
+
+                <!-- PROJECT TITLE -->
+
+                <div class="form-group">
+
+                    <label for="title">
+                        <i class="fa-solid fa-heading"></i>
+                        Project Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="e.g. CampusForge"
+                        required
+                    >
+
+                    <small>
+                        Give your project a clear and meaningful name.
+                    </small>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        <i class="fa-solid fa-align-left"></i>
+                        Project Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Describe what your project does, the problem it solves, and what you built..."
+                        rows="6"
+                    ></textarea>
+
+                    <small>
+                        Explain the purpose and key features of your project.
+                    </small>
+
+                </div>
+
+
+                <!-- URL ROW -->
+
+                <div class="form-row">
+
+                    <!-- GITHUB -->
+
+                    <div class="form-group">
+
+                        <label for="github_url">
+                            <i class="fa-brands fa-github"></i>
+                            GitHub URL
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-brands fa-github input-icon"></i>
+
+                            <input
+                                type="url"
+                                id="github_url"
+                                name="github_url"
+                                placeholder="https://github.com/username/project"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LIVE URL -->
+
+                    <div class="form-group">
+
+                        <label for="live_url">
+                            <i class="fa-solid fa-globe"></i>
+                            Live Project URL
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-link input-icon"></i>
+
+                            <input
+                                type="url"
+                                id="live_url"
+                                name="live_url"
+                                placeholder="https://your-project.com"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TECH STACK -->
+
+                <div class="form-group">
+
+                    <label for="tech_stack">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Tech Stack
+                    </label>
+
+                    <input
+                        type="text"
+                        id="tech_stack"
+                        name="tech_stack"
+                        placeholder="Python, Flask, PostgreSQL, JavaScript"
+                    >
+
+                    <small>
+                        Separate technologies using commas.
+                    </small>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label for="status">
+                        <i class="fa-solid fa-chart-simple"></i>
+                        Project Status
+                    </label>
+
+                    <select id="status" name="status">
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Planned">
+                            Planned
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACTION BUTTONS
+                ====================================== -->
+
+                <div class="form-actions">
+
+                    <a href="{{ url_for('dashboard') }}"
+                       class="cancel-btn">
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="submit-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Project
+
+                    </button>
+
+                </div>
+
+            </form>
+
         </div>
 
-        <div>
-            <label>GitHub URL</label>
-            <input
-                type="url"
-                name="github_url"
-                placeholder="https://github.com/..."
-            >
-        </div>
 
-        <div>
-            <label>Live Project URL</label>
-            <input
-                type="url"
-                name="live_url"
-                placeholder="https://..."
-            >
-        </div>
+        <!-- =========================================
+             SIDE INFO CARD
+        ========================================== -->
 
-        <div>
-            <label>Tech Stack</label>
-            <input
-                type="text"
-                name="tech_stack"
-                placeholder="Python, Flask, PostgreSQL"
-            >
-        </div>
+        <aside class="project-info-card">
 
-        <div>
-            <label>Status</label>
+            <div class="info-icon">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
 
-            <select name="status">
-                <option value="Completed">Completed</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Planned">Planned</option>
-            </select>
-        </div>
+            <h2>Build Your Profile 🚀</h2>
 
-        <button type="submit">
-            Add Project
-        </button>
+            <p>
+                Every project you add helps CampusForge
+                understand your technical journey.
+            </p>
 
-    </form>
+            <div class="info-points">
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    <span>Showcase your technical skills</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    <span>Improve your developer profile</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    <span>Track your project journey</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    <span>Stand out on the campus leaderboard</span>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+</div>
 
 </body>
 </html>

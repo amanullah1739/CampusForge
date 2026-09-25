@@ -1,0 +1,494 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.project-details-page {
+    min-height: 100vh;
+    padding: 40px 50px;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 30px;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-size: 13px;
+    opacity: 0.6;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.project-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+
+.project-title-section {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.project-main-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    font-size: 25px;
+}
+
+
+.page-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    opacity: 0.5;
+}
+
+
+.page-label i {
+    margin-right: 5px;
+}
+
+
+.project-title-section h1 {
+    margin: 7px 0 8px;
+
+    font-size: 36px;
+}
+
+
+.project-meta {
+    display: flex;
+    gap: 18px;
+
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+
+.project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+/* =========================================
+   HEADER ACTIONS
+========================================= */
+
+.project-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 16px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.edit-btn {
+    background: rgba(255,255,255,0.08);
+    color: inherit;
+}
+
+
+.delete-btn {
+    background: rgba(255,70,70,0.10);
+    color: inherit;
+}
+
+
+.edit-btn:hover,
+.delete-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.delete-btn:hover {
+    background: rgba(255,70,70,0.18);
+}
+
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.project-details-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(300px, 1fr);
+
+    gap: 24px;
+
+    align-items: start;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.project-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.details-card {
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.04);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+}
+
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.card-heading i {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,0.06);
+
+    font-size: 13px;
+}
+
+
+.card-heading h2 {
+    margin: 0;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.project-description {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   TECH STACK
+========================================= */
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+
+.tech-stack span {
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.06);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+
+    font-size: 12px;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.project-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 13px 15px;
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,0.05);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.status-display i {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PROJECT LINKS
+========================================= */
+
+.project-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.project-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,0.04);
+
+    color: inherit;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.project-link:hover {
+    background: rgba(255,255,255,0.08);
+
+    transform: translateX(3px);
+}
+
+
+.project-link > i:first-child {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,0.07);
+}
+
+
+.project-link div {
+    flex: 1;
+}
+
+
+.project-link strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+
+.project-link small {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    opacity: 0.45;
+}
+
+
+.project-link > i:last-child {
+    font-size: 11px;
+    opacity: 0.4;
+}
+
+
+/* =========================================
+   PROJECT INFO
+========================================= */
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.06);
+
+    font-size: 12px;
+}
+
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+
+.info-row span {
+    opacity: 0.5;
+}
+
+
+.info-row strong {
+    font-weight: 600;
+}
+
+
+/* =========================================
+   EMPTY TEXT
+========================================= */
+
+.empty-text {
+    margin: 0;
+
+    font-size: 12px;
+
+    opacity: 0.45;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .project-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .project-details-page {
+        padding: 25px 15px;
+    }
+
+
+    .project-details-header {
+        flex-direction: column;
+    }
+
+
+    .project-title-section {
+        align-items: flex-start;
+    }
+
+
+    .project-title-section h1 {
+        font-size: 28px;
+    }
+
+
+    .project-header-actions {
+        width: 100%;
+    }
+
+
+    .edit-btn,
+    .delete-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+
+    .project-meta {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+}
