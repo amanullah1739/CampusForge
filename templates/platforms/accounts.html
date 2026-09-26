@@ -1060,6 +1060,7 @@
                                     <small>Hard</small>
                                 </div>
 
+
                             {% elif account.platform == "Codeforces" %}
 
                                 <div class="platform-stat">
@@ -1082,21 +1083,35 @@
                                     <small>Rating</small>
                                 </div>
 
+
+                            {% elif account.platform == "GitHub" %}
+
+                                <div class="platform-stat">
+                                    <strong>{{ stats.public_repositories or 0 }}</strong>
+                                    <small>Repositories</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>{{ stats.stars or 0 }}</strong>
+                                    <small>Stars</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>{{ stats.forks or 0 }}</strong>
+                                    <small>Forks</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>{{ stats.repository_count or 0 }}</strong>
+                                    <small>Repos</small>
+                                </div>
+
+
                             {% else %}
 
                                 <div class="platform-stat">
-                                    <strong>{{ stats.unique_problems_solved or 0 }}</strong>
+                                    <strong>0</strong>
                                     <small>Problems</small>
-                                </div>
-
-                                <div class="platform-stat">
-                                    <strong>{{ stats.total_submissions or 0 }}</strong>
-                                    <small>Submissions</small>
-                                </div>
-
-                                <div class="platform-stat">
-                                    <strong>{{ stats.rating or "—" }}</strong>
-                                    <small>Rating</small>
                                 </div>
 
                             {% endif %}
@@ -1108,14 +1123,20 @@
                                 <small>Problems</small>
                             </div>
 
-                           <div class="platform-stat">
-                                {% if stats.last_synced %}
+                            <div class="platform-stat">
+
+                                {% if stats and stats.last_synced %}
+
                                     <strong>Synced</strong>
                                     <small>Status</small>
+
                                 {% else %}
+
                                     <strong>Not Synced</strong>
                                     <small>Status</small>
+
                                 {% endif %}
+
                             </div>
 
                         {% endif %}

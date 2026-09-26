@@ -44,6 +44,10 @@ from database.services.platforms.github_sync import (
 from database.services.platforms.github import (
     validate_github_username
 )
+from database.services.platforms.gfg_sync import (
+    sync_gfg_account
+)
+from database.models.github_stats import GitHubStats
 # =========================================================
 # CREATE FLASK APPLICATION
 # =========================================================
@@ -851,7 +855,6 @@ def add_project():
 # -------------------------
 # PLATFORM ACCOUNTS
 # -------------------------
-
 @app.route("/platforms")
 def platforms():
 
@@ -870,18 +873,38 @@ def platforms():
 
     for account in accounts:
 
-        stats = PlatformStats.query.filter_by(
-            platform_account_id=account.id
-        ).first()
+        # GitHub has its own stats table
+        if account.platform == "GitHub":
+
+            stats = GitHubStats.query.filter_by(
+                platform_account_id=account.id
+            ).first()
+
+        else:
+
+            stats = PlatformStats.query.filter_by(
+                platform_account_id=account.id
+            ).first()
 
         if stats:
 
-            total_problems += stats.unique_problems_solved or 0
-            total_submissions += stats.total_submissions or 0
-            total_accepted += stats.accepted_submissions or 0
+            # These totals only apply to coding-problem platforms
+            if account.platform != "GitHub":
+
+                total_problems += (
+                    stats.unique_problems_solved or 0
+                )
+
+                total_submissions += (
+                    stats.total_submissions or 0
+                )
+
+                total_accepted += (
+                    stats.accepted_submissions or 0
+                )
 
             platform_stats[account.id] = stats
-            
+
     return render_template(
         "platforms/accounts.html",
         accounts=accounts,
@@ -1148,13 +1171,64 @@ def sync_platform(account_id):
         return redirect(
             url_for("dashboard")
         )
-        
-        if account.platform == "GitHub":
+    if account.platform == "GFG":
+
+        try:
+
+            print(
+                "SYNCING GFG:",
+                account.username
+            )
+
+            gfg_stats = sync_gfg_account(
+                account
+            )
+
+            print(
+                "GFG SYNC RESULT:",
+                gfg_stats.problems_solved,
+                gfg_stats.coding_score,
+                gfg_stats.rank
+            )
+
+            flash(
+                "GFG stats synced successfully.",
+                "success"
+            )
+
+        except Exception as e:
+
+            print(
+                "GFG sync error:",
+                repr(e)
+            )
+
+            flash(
+                "Unable to sync GFG stats. Please try again.",
+                "error"
+            )
+
+    return redirect(
+        url_for("platforms")
+    )
+    
+    if account.platform == "GitHub":
 
             try:
 
-                sync_github_account(
-                    account
+                # sync_github_account(
+                #     account
+                # )
+                print("SYNCING GITHUB:", account.username)
+
+                github_stats = sync_github_account(account)
+
+                print(
+                    "GITHUB SYNC RESULT:",
+                    github_stats.public_repositories,
+                    github_stats.stars,
+                    github_stats.forks,
+                    github_stats.repository_count
                 )
 
                 flash(
@@ -1389,6 +1463,7 @@ def complete():
     )
 
 
+    
 # =========================================================
 # RUN APPLICATION
 # =========================================================

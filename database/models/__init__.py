@@ -4,3 +4,4 @@ from database.models.platform_account import PlatformAccount
 from database.models.platform_stats import PlatformStats
 from database.models.college import College
 from database.models.user_skill import UserSkill
+from database.models.gfg_stats import GFGStats
