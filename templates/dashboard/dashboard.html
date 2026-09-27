@@ -24,14 +24,14 @@
     <!-- =========================================
                 SIDEBAR
     ========================================== -->
-
-    <aside class="sidebar">
-
-        <button class="menu-toggle">
+    <button class="menu-toggle">
 
             <i class="fa-solid fa-bars"></i>
 
         </button>
+    <aside class="sidebar">
+
+        
 
         <div class="logo">
 
@@ -413,121 +413,6 @@
 </section>
 
 
-<section class="connected-platforms">
-
-    <div class="section-header">
-        <h2>Connected Platforms</h2>
-
-        <a href="{{ url_for('platforms') }}">
-            Manage Platforms
-        </a>
-    </div>
-
-    {% if platform_stats %}
-
-    {% for platform in platform_stats %}
-
-        <div class="platform-card">
-
-            <div class="platform-info">
-
-                <h3>
-                    {{ platform.platform }}
-                </h3>
-
-                <p>
-                    @{{ platform.username }}
-                </p>
-
-                {% if platform.stats.last_synced %}
-
-                    <small>
-                        Last synced:
-                        {{ platform.stats.last_synced.strftime("%d %b %Y, %I:%M %p") }}
-                    </small>
-
-                {% endif %}
-
-            </div>
-
-
-            <div class="platform-stats">
-
-                {% if platform.platform == "Codeforces" %}
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.unique_problems_solved }}
-                        </strong>
-                        <small>Problems Solved</small>
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.total_submissions }}
-                        </strong>
-                        <small>Submissions</small>
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.accepted_submissions }}
-                        </strong>
-                        <small>Accepted</small>
-                    </div>
-
-
-                {% elif platform.platform == "LeetCode" %}
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.unique_problems_solved }}
-                        </strong>
-                        <small>Problems Solved</small>
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.easy_problems }}
-                        </strong>
-                        <small>Easy</small>
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.medium_problems }}
-                        </strong>
-                        <small>Medium</small>
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ platform.stats.hard_problems }}
-                        </strong>
-                        <small>Hard</small>
-                    </div>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    {% endfor %}
-
-{% else %}
-
-        <p>
-            No coding platforms connected yet.
-        </p>
-
-        <a href="{{ url_for('connect_platform') }}">
-            Connect Platform
-        </a>
-
-    {% endif %}
-
-</section>
 
 <!-- =========================================
             DASHBOARD GRID
@@ -856,83 +741,6 @@
 
 <div id="toast"></div>
 
-<!-- =========================================
-        ACHIEVEMENT POPUP
-========================================= -->
-
-<div id="achievementPopup" class="achievement-popup">
-
-    <div class="achievement-content">
-
-        <div class="achievement-icon">
-
-            🏆
-
-        </div>
-
-        <h2>
-
-            Achievement Unlocked!
-
-        </h2>
-
-        <p id="achievementText">
-
-            Coding Master
-
-        </p>
-
-    </div>
-
-</div>
-
-<!-- =========================================
-        SETTINGS MODAL
-========================================= -->
-
-<div class="settings-modal"
-     id="settingsModal">
-
-    <h2>
-
-        ⚙ Dashboard Settings
-
-    </h2>
-
-    <br>
-
-    <label>
-
-        <input
-            type="checkbox"
-            id="animationToggle"
-            checked>
-
-        Enable Animations
-
-    </label>
-
-    <br><br>
-
-    <label>
-
-        <input
-            type="checkbox"
-            checked>
-
-        Email Notifications
-
-    </label>
-
-    <br><br>
-
-    <button id="closeSettings">
-
-        Close
-
-    </button>
-
-</div>
 
 <script src="{{ url_for('static', filename='js/dashboard/dashboard.js') }}"></script>
 

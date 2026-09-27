@@ -48,6 +48,7 @@ from database.services.platforms.gfg_sync import (
     sync_gfg_account
 )
 from database.models.github_stats import GitHubStats
+from database.models.gfg_stats import GFGStats
 # =========================================================
 # CREATE FLASK APPLICATION
 # =========================================================
@@ -856,6 +857,7 @@ def add_project():
 # PLATFORM ACCOUNTS
 # -------------------------
 @app.route("/platforms")
+@app.route("/platforms")
 def platforms():
 
     if "user_id" not in session:
@@ -864,6 +866,11 @@ def platforms():
     accounts = PlatformAccount.query.filter_by(
         user_id=session["user_id"]
     ).all()
+
+    connected_platforms = {
+        account.platform
+        for account in accounts
+    }
 
     total_problems = 0
     total_submissions = 0
@@ -880,6 +887,14 @@ def platforms():
                 platform_account_id=account.id
             ).first()
 
+        # GFG has its own stats table
+        elif account.platform == "GFG":
+
+            stats = GFGStats.query.filter_by(
+                platform_account_id=account.id
+            ).first()
+
+        # LeetCode / Codeforces / other coding platforms
         else:
 
             stats = PlatformStats.query.filter_by(
@@ -888,8 +903,19 @@ def platforms():
 
         if stats:
 
-            # These totals only apply to coding-problem platforms
-            if account.platform != "GitHub":
+            # GitHub doesn't contribute to coding totals
+            if account.platform == "GitHub":
+
+                pass
+
+            # GFG contributes only solved problems
+            elif account.platform == "GFG":
+
+                total_problems += (
+                    stats.problems_solved or 0
+                )
+
+            else:
 
                 total_problems += (
                     stats.unique_problems_solved or 0
@@ -909,11 +935,11 @@ def platforms():
         "platforms/accounts.html",
         accounts=accounts,
         platform_stats=platform_stats,
+        connected_platforms=connected_platforms,
         total_problems=total_problems,
         total_submissions=total_submissions,
         total_accepted=total_accepted
     )
-
 # -------------------------
 # CONNECT PLATFORM
 # -------------------------
@@ -1251,6 +1277,47 @@ def sync_platform(account_id):
             return redirect(
                 url_for("platforms")
             )
+            
+    if account.platform == "GFG":
+
+        try:
+
+            print(
+                "SYNCING GFG:",
+                account.username
+            )
+
+            gfg_stats = sync_gfg_account(
+                account
+            )
+
+            print(
+                "GFG SYNC RESULT:",
+                gfg_stats.problems_solved,
+                gfg_stats.coding_score,
+                gfg_stats.rank
+            )
+
+            flash(
+                "GFG stats synced successfully.",
+                "success"
+            )
+
+        except Exception as e:
+
+            print(
+                "GFG sync error:",
+                repr(e)
+            )
+
+            flash(
+                "Unable to sync GFG stats. Please try again.",
+                "error"
+            )
+
+        return redirect(
+            url_for("platforms")
+        )
 
     return redirect(
         url_for("dashboard")

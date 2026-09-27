@@ -1106,7 +1106,35 @@
                                     <small>Repos</small>
                                 </div>
 
+                            {% elif account.platform == "GFG" %}
 
+                                <div class="platform-stat">
+                                    <strong>{{ stats.problems_solved or 0 }}</strong>
+                                    <small>Problems</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>{{ stats.coding_score or 0 }}</strong>
+                                    <small>Score</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>
+                                        {{ stats.rank or "—" }}
+                                    </strong>
+                                    <small>Rank</small>
+                                </div>
+
+                                <div class="platform-stat">
+                                    <strong>
+                                        {% if stats.last_synced %}
+                                            Synced
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </strong>
+                                    <small>Status</small>
+                                </div>
                             {% else %}
 
                                 <div class="platform-stat">
@@ -1251,6 +1279,199 @@
 
     </section>
 
+<!-- =========================================
+     EXPLORE MORE PLATFORMS
+========================================== -->
+
+<section class="explore-section">
+
+    <div class="section-header">
+
+        <h2>
+            🌐 Explore More Platforms
+        </h2>
+
+        <span>
+            Expand your digital footprint
+        </span>
+
+    </div>
+
+
+    <div class="explore-grid">
+
+
+        <!-- GitHub -->
+        {% if "GitHub" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-brands fa-github"></i>
+            </div>
+
+            <h3>GitHub</h3>
+
+            <p>
+                Track repositories, commits and open-source activity.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='GitHub') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- LinkedIn -->
+        {% if "LinkedIn" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+
+            <h3>LinkedIn</h3>
+
+            <p>
+                Showcase your professional identity and network.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='LinkedIn') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- HackerRank -->
+        {% if "HackerRank" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-solid fa-terminal"></i>
+            </div>
+
+            <h3>HackerRank</h3>
+
+            <p>
+                Track coding challenges, skills and certifications.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='HackerRank') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- GeeksForGeeks -->
+        {% if "GFG" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-solid fa-laptop-code"></i>
+            </div>
+
+            <h3>GeeksForGeeks</h3>
+
+            <p>
+                Track problem solving and technical practice.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='GFG') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- CodeChef -->
+        {% if "CodeChef" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-solid fa-utensils"></i>
+            </div>
+
+            <h3>CodeChef</h3>
+
+            <p>
+                Track contests, ratings and competitive programming.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='CodeChef') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- Kaggle -->
+        {% if "Kaggle" not in connected_platforms %}
+
+        <div class="explore-card">
+
+            <div class="explore-icon">
+                <i class="fa-solid fa-database"></i>
+            </div>
+
+            <h3>Kaggle</h3>
+
+            <p>
+                Showcase data science projects and competitions.
+            </p>
+
+            <a href="{{ url_for('connect_platform', platform='Kaggle') }}"
+               class="explore-btn">
+
+                Connect
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
 
 
     
@@ -1261,199 +1482,7 @@
 
 
 
-    <!-- =========================================
-         EXPLORE MORE PLATFORMS
-    ========================================== -->
-
-    <section class="explore-section">
-
-        <div class="section-header">
-
-            <h2>
-                🌐 Explore More Platforms
-            </h2>
-
-            <span>
-                Expand your digital footprint
-            </span>
-
-        </div>
-
-
-        <div class="explore-grid">
-
-
-            <!-- GitHub -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-brands fa-github"></i>
-
-                </div>
-
-                <h3>GitHub</h3>
-
-                <p>
-                    Track repositories, commits and open-source activity.
-                </p>
-
-                <a href="{{ url_for('connect_platform', platform='GitHub') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-            <!-- LinkedIn -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-brands fa-linkedin"></i>
-
-                </div>
-
-                <h3>LinkedIn</h3>
-
-                <p>
-                    Showcase your professional identity and network.
-                </p>
-
-                <a href="{{ url_for('connect_platform') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-            <!-- HackerRank -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-solid fa-terminal"></i>
-
-                </div>
-
-                <h3>HackerRank</h3>
-
-                <p>
-                    Track coding challenges, skills and certifications.
-                </p>
-
-                <a href="{{ url_for('connect_platform') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-            <!-- GeeksForGeeks -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-solid fa-laptop-code"></i>
-
-                </div>
-
-                <h3>GeeksForGeeks</h3>
-
-                <p>
-                    Track problem solving and technical practice.
-                </p>
-
-                <a href="{{ url_for('connect_platform') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-            <!-- CodeChef -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-solid fa-utensils"></i>
-
-                </div>
-
-                <h3>CodeChef</h3>
-
-                <p>
-                    Track contests, ratings and competitive programming.
-                </p>
-
-                <a href="{{ url_for('connect_platform') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-            <!-- Kaggle -->
-
-            <div class="explore-card">
-
-                <div class="explore-icon">
-
-                    <i class="fa-solid fa-database"></i>
-
-                </div>
-
-                <h3>Kaggle</h3>
-
-                <p>
-                    Showcase data science projects and competitions.
-                </p>
-
-                <a href="{{ url_for('connect_platform') }}"
-                   class="explore-btn">
-
-                    Connect
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </section>
+    
 
 
 

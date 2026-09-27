@@ -257,19 +257,7 @@ card.style.display=text.includes(value)?"block":"none";
 });
 
 
-/* ==========================================
-        MOBILE SIDEBAR
-========================================== */
 
-const menu=document.querySelector(".menu-toggle");
-
-const sidebar=document.querySelector(".sidebar");
-
-menu.addEventListener("click",()=>{
-
-sidebar.classList.toggle("active");
-
-});
 
 /* ==========================================
         XP SYSTEM
@@ -675,3 +663,19 @@ document.querySelectorAll(".sync-btn").forEach(button => {
     });
 
 });
+
+/* ==========================================
+        MOBILE SIDEBAR
+========================================== */
+const menu = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+if (menu && sidebar) {
+
+    menu.addEventListener("click", () => {
+
+        sidebar.classList.toggle("active");
+
+    });
+
+}

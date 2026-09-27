@@ -19,6 +19,7 @@
     <form method="POST" action="{{ url_for('connect_platform') }}">
 
         <div>
+
             {% if platform %}
 
                 <input
@@ -32,9 +33,7 @@
                     <i class="fa-brands
                         {% if platform == 'GitHub' %}
                             fa-github
-                        {% elif platform == 'LeetCode' %}
-                            fa-code
-                        {% elif platform == 'Codeforces' %}
+                        {% else %}
                             fa-code
                         {% endif %}
                     "></i>
@@ -67,9 +66,30 @@
                         GitHub
                     </option>
 
+                    <option value="GFG">
+                        GeeksForGeeks
+                    </option>
+
+                    <option value="HackerRank">
+                        HackerRank
+                    </option>
+
+                    <option value="CodeChef">
+                        CodeChef
+                    </option>
+
+                    <option value="Kaggle">
+                        Kaggle
+                    </option>
+
+                    <option value="LinkedIn">
+                        LinkedIn
+                    </option>
+
                 </select>
 
             {% endif %}
+
         </div>
 
         <div>

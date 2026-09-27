@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+import re
 
 
 def get_gfg_profile(username):
@@ -8,61 +8,61 @@ def get_gfg_profile(username):
 
     response = requests.get(
         url,
-        timeout=10,
         headers={
             "User-Agent": "Mozilla/5.0"
-        }
+        },
+        timeout=15
     )
 
     response.raise_for_status()
 
     return response.text
 
-
 def get_gfg_basic_stats(username):
 
     html = get_gfg_profile(username)
 
-    def extract_value(key):
-
-        marker = f'\\"{key}\\":'
-
-        index = html.find(marker)
-
-        if index == -1:
-            return None
-
-        start = index + len(marker)
-
-        end = html.find(",", start)
-
-        if end == -1:
-            end = html.find("}", start)
-
-        value = html[start:end].strip()
-
-        value = value.strip('"')
-
-        return value
-
-    problems_solved = extract_value(
-        "total_problems_solved"
+    score_match = re.search(
+        r'\\"score\\":(\d+)',
+        html
     )
 
-    score = extract_value(
-        "score"
+    problems_match = re.search(
+        r'\\"total_problems_solved\\":(\d+)',
+        html
     )
 
-    institute_rank = extract_value(
-        "institute_rank"
+    rank_match = re.search(
+        r'\\"institute_rank\\":\\"(\d*)\\"',
+        html
+    )
+
+    coding_score = (
+        int(score_match.group(1))
+        if score_match
+        else 0
+    )
+
+    problems_solved = (
+        int(problems_match.group(1))
+        if problems_match
+        else 0
+    )
+
+    rank = None
+
+    if rank_match and rank_match.group(1):
+        rank = int(rank_match.group(1))
+
+    print(
+        "GFG PARSED:",
+        problems_solved,
+        coding_score,
+        rank
     )
 
     return {
-        "problems_solved": int(
-            problems_solved or 0
-        ),
-        "coding_score": int(
-            score or 0
-        ),
-        "rank": institute_rank or None
+        "problems_solved": problems_solved,
+        "coding_score": coding_score,
+        "rank": rank
     }
