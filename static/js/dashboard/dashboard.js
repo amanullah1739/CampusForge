@@ -667,15 +667,29 @@ document.querySelectorAll(".sync-btn").forEach(button => {
 /* ==========================================
         MOBILE SIDEBAR
 ========================================== */
-const menu = document.querySelector(".menu-toggle");
-const sidebar = document.querySelector(".sidebar");
 
-if (menu && sidebar) {
+/* ==========================================
+        SIDEBAR MENU
+========================================== */
 
-    menu.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+
+    if (!menuToggle || !sidebar) {
+        console.error("Sidebar or menu button not found!");
+        return;
+    }
+
+    menuToggle.addEventListener("click", (event) => {
+
+        event.stopPropagation();
 
         sidebar.classList.toggle("active");
 
+        console.log("Sidebar:", sidebar.classList.contains("active"));
+
     });
 
-}
+});

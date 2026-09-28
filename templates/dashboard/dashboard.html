@@ -21,111 +21,82 @@
 
 <div class="dashboard">
 
-    <!-- =========================================
-                SIDEBAR
-    ========================================== -->
-    <button class="menu-toggle">
-
+    <!-- MENU BUTTON -->
+        <button class="menu-toggle" type="button" id="menuToggle">
             <i class="fa-solid fa-bars"></i>
-
         </button>
-    <aside class="sidebar">
 
-        
 
-        <div class="logo">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
 
-            <i class="fa-solid fa-graduation-cap"></i>
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>CampusForge</h2>
+            </div>
 
-            <h2>CampusForge</h2>
+            <nav>
+                <ul>
 
-        </div>
+                    <li class="active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </li>
 
-        <nav>
+                    <li onclick="window.location.href='{{ url_for('profile') }}'">
+                        <i class="fa-solid fa-user"></i>
+                        <span>My Profile</span>
+                    </li>
 
-            <ul>
+                    <li onclick="window.location.href='{{ url_for('platforms') }}'">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Platforms</span>
+                    </li>
 
-                <li class="active">
+                    <li onclick="window.location.href='{{ url_for('projects') }}'">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>Projects</span>
+                    </li>
 
-                    <i class="fa-solid fa-house"></i>
+                    <li>
+                        <i class="fa-solid fa-ranking-star"></i>
+                        <span>Leaderboard</span>
+                    </li>
 
-                    <span>Dashboard</span>
+                    <li>
+                        <i class="fa-solid fa-robot"></i>
+                        <span>AI Coach</span>
+                    </li>
 
-                </li>
+                    <li>
+                        <i class="fa-solid fa-certificate"></i>
+                        <span>Certificates</span>
+                    </li>
 
-                <li onclick="window.location.href='{{ url_for('profile') }}'">
-                    <i class="fa-solid fa-user"></i>
-                    <span>My Profile</span>
-                </li>
+                    <li>
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </li>
 
-                <li onclick="window.location.href='{{ url_for('platforms') }}'">
-                    <i class="fa-solid fa-code"></i>
-                    <span>Platforms</span>
-                </li>
+                    <li>
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </li>
 
-                <li onclick="window.location.href='{{ url_for('projects') }}'">
-                    <i class="fa-solid fa-folder-open"></i>
-                    <span>Projects</span>
-                </li>
+                </ul>
+            </nav>
 
-                <li>
+            <div class="logout">
+                <button type="button"
+                        onclick="window.location.href='{{ url_for('logout') }}'">
 
-                    <i class="fa-solid fa-ranking-star"></i>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
 
-                    <span>Leaderboard</span>
+                </button>
+            </div>
 
-                </li>
-
-                <li>
-
-                    <i class="fa-solid fa-robot"></i>
-
-                    <span>AI Coach</span>
-
-                </li>
-
-                <li>
-
-                    <i class="fa-solid fa-certificate"></i>
-
-                    <span>Certificates</span>
-
-                </li>
-
-                <li>
-
-                    <i class="fa-solid fa-chart-line"></i>
-
-                    <span>Analytics</span>
-
-                </li>
-
-                <li>
-
-                    <i class="fa-solid fa-gear"></i>
-
-                    <span>Settings</span>
-
-                </li>
-
-            </ul>
-
-        </nav>
-
-        <div class="logout">
-
-            <button type="button"
-                onclick="window.location.href='{{ url_for('logout') }}'">
-
-                <i class="fa-solid fa-right-from-bracket"></i>
-
-                Logout
-
-            </button>
-
-        </div>
-
-    </aside>
+        </aside>
 
     <!-- =========================================
                 MAIN CONTENT
